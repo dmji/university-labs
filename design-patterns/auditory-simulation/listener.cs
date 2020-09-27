@@ -8,7 +8,7 @@ namespace auditory_simulation
     {
         protected static int id;
         protected string name;
-        protected Func<Listener, string> leaver;
+        protected List<Func<Listener, string,bool>> Controls;
 
         public string Name { get { return name; } }
 
@@ -31,11 +31,11 @@ namespace auditory_simulation
 
         }
 
-        public bool getFree()
+        public virtual bool getFree()
         {
-            if (leaver != null)
+            if (Controls != null)
             {
-                leaver(this);
+                Controls[0](this,null);
                 return true;
             }
             else
@@ -44,11 +44,11 @@ namespace auditory_simulation
             }
         }
 
-        public bool enterTo(Auditory obj)
+        public virtual bool enterTo(Auditory obj)
         {
             getFree();
-            leaver = obj.enter(this);
-            if (leaver ==null)
+            Controls = obj.enter(this);
+            if (Controls.Count == null)
                 return false;
             return true;
         }

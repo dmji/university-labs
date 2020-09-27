@@ -18,6 +18,7 @@ namespace auditory_simulation
             host.enterTo(main);
             while(!lectureText.EndOfStream)
                 host.say(lectureText.ReadLine());
+            host.ReleaseRoom();
         }
     }
 }
