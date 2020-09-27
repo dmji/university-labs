@@ -339,3 +339,5 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /c-sharp-common-labs
+/design-patterns/auditory-simulation-v2
+/mfc-labs

@@ -5,14 +5,13 @@ using System.Text;
 
 namespace auditory_simulation
 {
-    class Magiters : Listener
+    class Magiters : Students
     {
         public Magiters(string Name):base(Name) {}
         private bool log = true;
 
-        public override void takeMsg(string info)
+        protected override void AfterListenDo(string info)
         {
-            base.takeMsg(info);
             if (log)
                 Console.WriteLine($"{this.GetType().Name} \"{name}\" wrote: {info}");
             log = !log;

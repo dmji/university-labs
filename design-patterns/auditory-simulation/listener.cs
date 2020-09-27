@@ -6,41 +6,51 @@ namespace auditory_simulation
 {
     class Listener
     {
+        protected static int id;
         protected string name;
         protected Func<Listener, string> leaver;
 
         public string Name { get { return name; } }
 
-        public Listener(string Name)
+        public Listener(string Name="Unknown")
         {
             name = Name;
+            if (name == "Unknown")
+                name += id.ToString();
+            id++;
         }
 
-        public virtual void takeMsg(string info)
+        public virtual void Listen(string info)
         {
             Console.WriteLine($"{this.GetType().Name} \"{name}\" heard: {info}");
+            AfterListenDo(info);
         }
 
-        public string getFree()
+        protected virtual void AfterListenDo(string info)
+        {
+
+        }
+
+        public bool getFree()
         {
             if (leaver != null)
             {
                 leaver(this);
-                return "OK";
+                return true;
             }
             else
             {
-                return "ALREADYFREE";
+                return false;
             }
         }
 
-        public string enterTo(Auditory obj)
+        public bool enterTo(Auditory obj)
         {
             getFree();
             leaver = obj.enter(this);
             if (leaver ==null)
-                return "NOSPACE";
-            return "OK";
+                return false;
+            return true;
         }
 
     }

@@ -9,56 +9,60 @@ namespace auditory_simulation
 {
     class Auditory
     {
-        private int id;
-        private List<Listener> list;
-        private int limiter;
+        private static int id=0;
+        private string name;
+        private List<Listener> Listeners;
+        private int ListLimiter;
 
-        public Auditory(int Id=0,int limit=0)
+        public Auditory(string Name=null,int limit=0)
         {
-            id = Id;
-            limiter = limit;
-            list = new List<Listener>();
+            if (Name == null)
+                name = id.ToString();
+            else
+                name = Name;
+            ListLimiter = limit;
+            Listeners = new List<Listener>();
         }
         
-        protected string msgSpace(Listener obj, string info)
+        protected string Echo(Listener obj, string info)
         {
             Console.Out.NewLine = "\n\t";
-            Console.WriteLine($"Auditory {id}: {obj.Name} said: \"{info}\"\n\t  Listeners reaction log begin");
+            Console.WriteLine($"Auditory {name}: {obj.Name} said: \"{info}\"\n\t  Listeners reaction log begin");
             
-            foreach (Listener a in list)
+            foreach (Listener a in Listeners)
             { 
                 if (!a.Equals(obj))
-                    a.takeMsg(info);
+                    a.Listen(info);
             }
             Console.Out.NewLine = "\n";
             Console.WriteLine($"  Listeners reaction log end.");
             return "OK";
         }
 
-        public Func<Listener,string, string> takeControl(Listener obj)
+        public Func<Listener,string, string> Controller(Listener obj)
         {
             if (obj is Professor)
-                return msgSpace;
+                return Echo;
             else
                 return null;
         }
 
         public Func<Listener, string> enter(Listener obj)
         {
-            if (list.Count < limiter || obj is Professor)
+            if (Listeners.Count < ListLimiter || obj is Professor)
             {
-                list.Add(obj);
-                Console.WriteLine($"Auditory {id}: {obj.Name} entered");
+                Listeners.Add(obj);
+                Console.WriteLine($"Auditory {name}: {obj.Name} entered");
                 return leave;
             }
             else
-                Console.WriteLine($"Auditory {id}: not enouth space for {obj.Name}");
+                Console.WriteLine($"Auditory {name}: not enouth space for {obj.Name}");
             return null;
         }
         protected string leave(Listener obj)
         {
-            list.Remove(obj);
-            Console.WriteLine($"Auditory {id}: {obj.Name} leaved");
+            Listeners.Remove(obj);
+            Console.WriteLine($"Auditory {name}: {obj.Name} leaved");
             return "OK";
         }
     }

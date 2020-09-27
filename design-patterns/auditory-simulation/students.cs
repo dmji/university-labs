@@ -9,9 +9,8 @@ namespace auditory_simulation
     {
         public Students(string Name):base(Name) {}
 
-        public override void takeMsg(string info) 
+        protected override void AfterListenDo(string info) 
         {
-            base.takeMsg(info);
             Console.WriteLine($"{this.GetType().Name} \"{name}\" wrote: {info}");
         }
     }

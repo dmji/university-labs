@@ -10,23 +10,17 @@ namespace auditory_simulation
         public Professor(string Name):base(Name) {}
         protected Func<Listener,string, string> sender = null; 
 
-        public override void takeMsg(string info) 
-        {
-            base.takeMsg(info);
-            Console.WriteLine($"{this.GetType().Name} \"{name}\" wrote: {info}");
-        }
-
         public string enterTo(Auditory obj)
         {
             getFree();
             leaver = obj.enter(this);
             if (leaver ==null)
                 return "NOSPACE";
-            sender = obj.takeControl(this);
+            sender = obj.Controller(this);
             return "OK";
         }
 
-        public void sendMsg(string info)
+        public void say(string info)
         {
             if(sender!=null)
             {
