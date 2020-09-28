@@ -6,16 +6,11 @@ namespace lab1
     {
         static void Main(string[] args)
         {
-            IPrintable[] text = {new Word("Тестируем"), new Sign(' '),
-                new Word("мою"), new Sign(' '),
-                new Word("архитектуру"), new Sign('!') };
-            /*Text txt = new Text(
+            Text txt = new Text(
                 new Word("Тестируем"), new Sign(' '),
                 new Word("мою"), new Sign(' '),
                 new Word("архитектуру"), new Sign('!') );
-            */
-            Text txt = new Text(text);
-
+            
             IPrinterDelegate prn = new PrinterDelegate(new PrinterSpecial());
             
             

@@ -95,7 +95,7 @@ namespace lab1
     public class Text : IPrintable
     {
         private IPrintable [] word;
-        public Text(IPrintable [] init)
+        public Text(params IPrintable [] init)
         {
             word = init;
         }
