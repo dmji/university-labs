@@ -34,7 +34,7 @@ namespace lab1
         }
         public void Print(IPrintable obj)
         {
-            obj.Print(prn);
+            obj.Print(this);
         }
     }
 

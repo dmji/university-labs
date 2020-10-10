@@ -14,7 +14,6 @@ namespace lab1
             IPrinterDelegate prn = new PrinterDelegate(new PrinterSpecial());
             
             
-            txt.Print(prn);
             Console.Write('\n');
             prn.Print(txt);
         }
