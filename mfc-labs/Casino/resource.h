@@ -30,9 +30,11 @@
 #define IDC_EDIT1                       1014
 #define IDC_IMAGE1                      1015
 #define IDC_BALANCE                     1016
+#define IDC_STATIC_BALANCE              1016
 #define IDC_ROULLET                     1017
 #define IDC_COURSOR                     1018
 #define IDC_STATIC_INFO1                1019
+#define IDC_MFCCOLORBUTTON1             1020
 #define IDC_BUTTON11                    1021
 #define IDC_BUTTON_11                   1021
 #define IDC_BUTTON12                    1022
@@ -51,6 +53,8 @@
 #define IDC_BUTTON_16                   1028
 #define IDC_BUTTON19                    1029
 #define IDC_BUTTON_18                   1029
+#define IDC_MFCBUTTON1                  1030
+#define IDC_MFCBUTTON2                  1031
 #define IDC_BUTTON20                    1057
 #define IDC_BUTTON_20                   1057
 #define IDC_BUTTON21                    1058
@@ -108,9 +112,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        141
+#define _APS_NEXT_RESOURCE_VALUE        142
 #define _APS_NEXT_COMMAND_VALUE         32772
-#define _APS_NEXT_CONTROL_VALUE         1020
+#define _APS_NEXT_CONTROL_VALUE         1031
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

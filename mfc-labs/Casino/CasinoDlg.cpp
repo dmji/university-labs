@@ -7,7 +7,7 @@
 #include "Casino.h"
 #include "CasinoDlg.h"
 #include "afxdialogex.h"
-
+#include <WinUser.h>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -42,7 +42,7 @@ END_MESSAGE_MAP()
 BOOL CCasinoDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-	m_casino = new CCasinoObject();
+	m_casino = new CCasinoObject(1000);
 	srand(time(0));
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
@@ -66,6 +66,66 @@ BOOL CCasinoDlg::OnInitDialog()
 	}
 	m_picture->SetBitmap(spinHB[0]);
 	spinner = 0;
+	
+	UpdateUserData();
+
+	auto green = RGB(0, 100, 0);
+	auto red = RGB(255, 0, 0);
+	auto silver = RGB(192, 192, 192);
+	auto white = RGB(255, 255, 255);
+	auto black = RGB(0, 0, 0);
+
+	reColorButton(IDC_BUTTON_0, green);
+	reColorButton(IDC_BUTTON_1, red);
+	reColorButton(IDC_BUTTON_2, black);
+	reColorButton(IDC_BUTTON_3, red);
+	reColorButton(IDC_BUTTON_4, black);
+	reColorButton(IDC_BUTTON_5, red);
+	reColorButton(IDC_BUTTON_6, black);
+	reColorButton(IDC_BUTTON_7, red);
+	reColorButton(IDC_BUTTON_8, black);
+	reColorButton(IDC_BUTTON_9, red);
+	reColorButton(IDC_BUTTON_10, black);
+	reColorButton(IDC_BUTTON_11, black);
+	reColorButton(IDC_BUTTON_12, red);
+	reColorButton(IDC_BUTTON_13, black);
+	reColorButton(IDC_BUTTON_14, red);
+	reColorButton(IDC_BUTTON_15, black);
+	reColorButton(IDC_BUTTON_16, red);
+	reColorButton(IDC_BUTTON_17, black);
+	reColorButton(IDC_BUTTON_18, red);
+	reColorButton(IDC_BUTTON_19, red);
+	reColorButton(IDC_BUTTON_20, black);
+	reColorButton(IDC_BUTTON_21, red);
+	reColorButton(IDC_BUTTON_22, black);
+	reColorButton(IDC_BUTTON_23, red);
+	reColorButton(IDC_BUTTON_24, black);
+	reColorButton(IDC_BUTTON_25, red);
+	reColorButton(IDC_BUTTON_26, black);
+	reColorButton(IDC_BUTTON_27, red);
+	reColorButton(IDC_BUTTON_28, black);
+	reColorButton(IDC_BUTTON_29, black);
+	reColorButton(IDC_BUTTON_30, red);
+	reColorButton(IDC_BUTTON_31, black);
+	reColorButton(IDC_BUTTON_32, red);
+	reColorButton(IDC_BUTTON_33, black);
+	reColorButton(IDC_BUTTON_34, red);
+	reColorButton(IDC_BUTTON_35, black);
+	reColorButton(IDC_BUTTON_36, red);
+	reColorButton(IDC_BUTTON_W1, green);
+	reColorButton(IDC_BUTTON_W2, green);
+	reColorButton(IDC_BUTTON_W3, green);
+	reColorButton(IDC_BUTTON_H1, green);
+	reColorButton(IDC_BUTTON_H2, green);
+	reColorButton(IDC_BUTTON_H3, green);
+	reColorButton(IDC_BUTTON_D1, green);
+	reColorButton(IDC_BUTTON_D2, green);
+	reColorButton(IDC_BUTTON_EVEN, green);
+	reColorButton(IDC_BUTTON_ODD, green);
+	reColorButton(IDC_BUTTON_RED, red);
+	reColorButton(IDC_BUTTON_BLACK, black);
+	reColorButton(IDC_BUTTON_SPIN, green);
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -91,8 +151,6 @@ void CCasinoDlg::OnPaint()
 
 		// Draw the icon
 		dc.DrawIcon(x, y, m_hIcon);
-
-	
 	}
 	else
 	{
@@ -130,5 +188,19 @@ void CCasinoDlg::OnBnClickedButtonSpin()
 
 void CCasinoDlg::OnBnClickedButton3()
 {
-	m_casino.bets.Add(CString("3"));
+	CString val;
+	auto bt = ((CMFCButton*)GetDlgItem(IDC_BUTTON_3));
+	bt->GetWindowTextW(val);
+	int betID = m_casino->FindBet(val);
+	if (betID == -1)
+	{
+		m_casino->bets.Add(val);
+		bt->SetTextColor(RGB(255, 255, 0));
+	}
+	else
+	{
+		m_casino->bets.RemoveAt(betID);
+		bt->SetTextColor(RGB(255, 255, 255));
+	}
 }
+

@@ -22,5 +22,12 @@ public:
             }
         }
     }
+    int FindBet(CString& val)
+    {
+        for (int i = 0; i < bets.GetSize(); i++)
+            if (bets[i] == val)
+                return i;
+        return -1;
+    }
 };
 
