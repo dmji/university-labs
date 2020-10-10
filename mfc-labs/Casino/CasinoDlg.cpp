@@ -188,19 +188,6 @@ void CCasinoDlg::OnBnClickedButtonSpin()
 
 void CCasinoDlg::OnBnClickedButton3()
 {
-	CString val;
-	auto bt = ((CMFCButton*)GetDlgItem(IDC_BUTTON_3));
-	bt->GetWindowTextW(val);
-	int betID = m_casino->FindBet(val);
-	if (betID == -1)
-	{
-		m_casino->bets.Add(val);
-		bt->SetTextColor(RGB(255, 255, 0));
-	}
-	else
-	{
-		m_casino->bets.RemoveAt(betID);
-		bt->SetTextColor(RGB(255, 255, 255));
-	}
+	OnBtClickedAction(((CMFCButton*)GetDlgItem(IDC_BUTTON_3)));
 }
 

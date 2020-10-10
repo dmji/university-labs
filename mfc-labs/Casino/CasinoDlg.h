@@ -22,7 +22,7 @@ public:
 	enum { IDD = IDD_CASINO_DIALOG };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 	void reColorButton(int id, unsigned long colorFace, unsigned long colorText = 16777215)
 	{
@@ -36,6 +36,25 @@ public:
 		a.Format(_T("%d"), m_casino->userBank);
 		CWnd* pStaticTest = (CWnd*)GetDlgItem(IDC_STATIC_BALANCE);
 		pStaticTest->SetWindowTextW(a);
+	}
+	void OnBtClickedAction(CMFCButton* bt)
+	{
+		if (bt) 
+		{
+			CString val;
+			bt->GetWindowTextW(val);
+			int betID = m_casino->FindBet(val);
+			if (betID == -1)
+			{
+				m_casino->bets.Add(val);
+				bt->SetTextColor(RGB(255, 255, 0));
+			}
+			else
+			{
+				m_casino->bets.RemoveAt(betID);
+				bt->SetTextColor(RGB(255, 255, 255));
+			}
+		}
 	}
 
 // Implementation
