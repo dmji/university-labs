@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by Casino.rc
+// Включаемый файл, созданный в Microsoft Visual C++.
+// Используется Casino.rc
 //
 #define IDD_CASINO_DIALOG               102
 #define IDD_PROPPAGE_SMALL              103
@@ -28,6 +28,7 @@
 #define IDC_BUTTON_9                    1011
 #define IDC_COMBO1                      1013
 #define IDC_EDIT1                       1014
+#define IDC_BET                         1014
 #define IDC_IMAGE1                      1015
 #define IDC_BALANCE                     1016
 #define IDC_STATIC_BALANCE              1016
@@ -35,6 +36,7 @@
 #define IDC_COURSOR                     1018
 #define IDC_STATIC_INFO1                1019
 #define IDC_MFCCOLORBUTTON1             1020
+#define IDC_STATIC_INFO2                1020
 #define IDC_BUTTON11                    1021
 #define IDC_BUTTON_11                   1021
 #define IDC_BUTTON12                    1022
