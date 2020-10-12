@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace lab1
+namespace lab0
 {
     public class PrinterDefault : IPrinter
     {
@@ -39,7 +39,7 @@ namespace lab1
     }
 
 
-    public class PrinterSpecial : PrinterDefault
+    public class lab0pecial : PrinterDefault
     {
         public override void Print(string obj)
         {

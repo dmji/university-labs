@@ -4,20 +4,24 @@ using System.Text;
 
 namespace lab1
 {
-    public interface IPrinter
+    public interface BaseElement
     {
-        void Print(string obj);
-        void Print(char obj);
+        BaseElement Copy();
+        bool isZero();
     }
 
-    public interface IPrinterDelegate : IPrinter
+    public interface Vector : BaseElement
     {
-        public void Print(IPrintable obj);
+        BaseElement Get(int index);
+        bool Set(int index, BaseElement value);
+        int Vector_Size();
     }
 
-    public interface IPrintable
+    public interface Matrix
     {
-        void Print(IPrinter obj);
+        BaseElement Get(int iRow, int iColumn);
+        bool Set(int iRow, int iColumn, BaseElement value);
+        int nRow();
+        int nColumn();
     }
-
 }

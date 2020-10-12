@@ -6,16 +6,13 @@ namespace lab1
     {
         static void Main(string[] args)
         {
-            Text txt = new Text(
-                new Word("Тестируем"), new Sign(' '),
-                new Word("мою"), new Sign(' '),
-                new Word("архитектуру"), new Sign('!') );
-            
-            IPrinterDelegate prn = new PrinterDelegate(new PrinterSpecial());
-            
-            
-            Console.Write('\n');
-            prn.Print(txt);
+            SimpleMatrix sim = new SimpleMatrix(10, 10);
+            SparseMatrix spa = new SparseMatrix(10, 10);
+            InicializeMatrix.init(spa, 10, 100);
+            InicializeMatrix.init(sim, 10, 100);
+            StatsMatrix a = new StatsMatrix(sim), b=new StatsMatrix(spa);
+            Console.WriteLine($"SimpleMatrix:\nSum={a.summary}\nAvg={a.avgValue}\nMax={a.maxValue}\nNotNull={a.notZero}");
+            Console.WriteLine($"\nSparseMatrix:\nSum={b.summary}\nAvg={b.avgValue}\nMax={b.maxValue}\nNotNull={b.notZero}");
         }
     }
 }
