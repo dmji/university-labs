@@ -4,12 +4,23 @@ using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 
-namespace lab1
+namespace lab1_matrix_bridge
 {
-    public class SimpleVector : Vector
+    public class SimpleVector : IVector
     {
-        protected List<BaseElement> mem=new List<BaseElement>();
+        protected List<IBaseElement> mem=new List<IBaseElement>();
         protected int size;
+
+        public void Print(IPrinter p)
+        {
+            for(int i = 0; i < mem.Count; i++)
+            {
+                if(mem[i] is IMathElement)
+                    mem[i].Print(p);
+                else if(mem[i] is IVector)
+                    p.Print((IVector)mem[i]);
+            }
+        }
 
         public SimpleVector(int vecSize)
         {
@@ -17,17 +28,17 @@ namespace lab1
             for(int i = 0; i < size; i++)
                 mem.Add(new CInt(0));
         }
-        public SimpleVector(params BaseElement[] vals)
+        public SimpleVector(params IBaseElement[] vals)
         {
-            mem = new List<BaseElement>(vals);
+            mem = new List<IBaseElement>(vals);
             size = mem.Count();
         }
-        public BaseElement Get(int index)
+        public IBaseElement Get(int index)
         { 
             return mem[index]; 
         }
 
-        public bool Set(int index, BaseElement value)
+        public bool Set(int index, IBaseElement value)
         {
             if(index < size)
             {
@@ -40,7 +51,7 @@ namespace lab1
         {
             return size;
         }
-        public BaseElement Copy()
+        public IBaseElement Copy()
         {
             return new SimpleVector(mem.ToArray());
         }
@@ -50,18 +61,27 @@ namespace lab1
         }
     }
     
-    public class SparseVector : Vector
+    public class SparseVector : IVector
     {
-        public List<BaseElement> memValue = new List<BaseElement>();
+        public List<IBaseElement> memValue = new List<IBaseElement>();
         public List<int> memIndex = new List<int>();
         protected int size;
         public static readonly CInt zero = new CInt(0);
+
+        public void Print(IPrinter p)
+        {
+            for(int i = 0; i < memValue.Count; i++)
+                if(memValue[i] is IMathElement)
+                    memValue[i].Print(p);
+                else if(memValue[i] is IVector)
+                    p.Print((IVector)memValue[i]);
+        }
 
         public SparseVector(int vecSize)
         {
             size = vecSize;
         }
-        public SparseVector(params BaseElement[] vals)
+        public SparseVector(params IBaseElement[] vals)
         {
             size = vals.Length;
             for(int i=0;i<size;i++)
@@ -77,9 +97,9 @@ namespace lab1
         {
             size = src.size;
             memIndex = new List<int>(src.memIndex);
-            memValue = new List<BaseElement>(src.memValue);
+            memValue = new List<IBaseElement>(src.memValue);
         }
-        public BaseElement Get(int index)
+        public IBaseElement Get(int index)
         {
             if(index < size)
             {
@@ -91,7 +111,7 @@ namespace lab1
             }
                 return null;
         }
-        public bool Set(int index, BaseElement value)
+        public bool Set(int index, IBaseElement value)
         {
             if(index < size)
             {
@@ -120,7 +140,7 @@ namespace lab1
         {
             return size;
         }
-        public BaseElement Copy()
+        public IBaseElement Copy()
         {
             return new SimpleVector(this);
         }

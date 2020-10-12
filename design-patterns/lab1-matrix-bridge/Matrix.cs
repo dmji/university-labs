@@ -4,16 +4,21 @@ using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 
-namespace lab1
+namespace lab1_matrix_bridge
 {
-    public abstract class СertainMatrix : Matrix
+    public abstract class СertainMatrix : IMatrix
     {
-        protected Vector mem;
+        protected IVector mem;
         protected int rows;
         protected int cols;
 
-        public abstract BaseElement Get(int iRow, int iColumn);
-        public abstract bool Set(int iRow, int iColumn, BaseElement value);
+        public void Print(IPrinter p)
+        {
+            mem.Print(p);
+        }
+
+        public abstract IBaseElement Get(int iRow, int iColumn);
+        public abstract bool Set(int iRow, int iColumn, IBaseElement value);
         public int nRow()
         {
             return cols;
@@ -21,6 +26,11 @@ namespace lab1
         public int nColumn()
         {
             return rows;
+        }
+        public abstract IBaseElement Copy();
+        public bool isZero()
+        {
+            return mem.Vector_Size() == 0;
         }
     }
 
@@ -35,13 +45,19 @@ namespace lab1
                 mem.Set(i, new SimpleVector(cols));
         }
 
-        public override BaseElement Get(int iRow, int iColumn)
+        public override IBaseElement Get(int iRow, int iColumn)
         {
             return ((SimpleVector)mem.Get(iRow)).Get(iColumn);
         }
-        public override bool Set(int iRow, int iColumn, BaseElement value)
+        public override bool Set(int iRow, int iColumn, IBaseElement value)
         {
             return ((SimpleVector)mem.Get(iRow)).Set(iColumn, value);
+        }
+        public override IBaseElement Copy()
+        {
+            SimpleMatrix res = new SimpleMatrix(rows, cols);
+            res.mem = new SimpleVector(mem.Copy());
+            return res;
         }
     }
     
@@ -54,7 +70,7 @@ namespace lab1
             mem = new SparseVector(rows);
         }
 
-        public override BaseElement Get(int iRow, int iColumn)
+        public override IBaseElement Get(int iRow, int iColumn)
         {
             var t = mem.Get(iRow);
             if(t is SparseVector)
@@ -62,19 +78,26 @@ namespace lab1
             else
                 return SparseVector.zero;
         }
-        public override bool Set(int iRow, int iColumn, BaseElement value)
+        public override bool Set(int iRow, int iColumn, IBaseElement value)
         {
             var t = mem.Get(iRow);
             if(t is CInt)
                 mem.Set(iRow,new SparseVector(cols));
             return ((SparseVector)mem.Get(iRow)).Set(iColumn, value);
         }
+
+        public override IBaseElement Copy()
+        {
+            SparseMatrix res = new SparseMatrix(rows, cols);
+            res.mem = new SparseVector(mem.Copy());
+            return res;
+        }
     }
 
 
     public class InicializeMatrix
     {
-        public static bool init(Matrix mx, int notZero, int maxValue)
+        public static bool init(IMatrix mx, int notZero, int maxValue)
         {
             while(notZero > 0)
             {
@@ -97,16 +120,16 @@ namespace lab1
         public double maxValue { get; }
         public int notZero { get; }
 
-        public StatsMatrix(Matrix mx)
+        public StatsMatrix(IMatrix mx)
         {
             notZero = 0;
-            MathElement sum = new CInt(0),
+            IMathElement sum = new CInt(0),
                 temp,
                 maxVal = new CInt(0);
             for(int i=0;i<mx.nRow();i++)
                 for(int j=0;j<mx.nColumn();j++)
                 {
-                    temp = (MathElement)(mx.Get(i, j));
+                    temp = (IMathElement)(mx.Get(i, j));
                     if(!temp.isZero())
                         notZero++;
                     sum += temp;
