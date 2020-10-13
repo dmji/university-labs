@@ -7,16 +7,26 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="BTN_SIMPLE" Content="Generate Simple Matrix" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="131" Click="BTN_SIMPLE_Click"/>
         <Button x:Name="BTN_SPARCE" Content="Generate Sparce Matrix." HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="131" Click="BTN_SPARCE_Click"/>
-        <RadioButton x:Name="DT_WPF" Content="WPF Printer" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" IsChecked="True" Checked="DT_WPF_Checked"/>
-        <RadioButton x:Name="DT_CONSOLE" Content="Console Printer" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TB_nROW" HorizontalAlignment="Left" Margin="60,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="10"/>
+        <RadioButton x:Name="DT_WPF" Content="WPF TextBox" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" Checked="DT_WPF_Checked"/>
+        <RadioButton x:Name="DT_CONSOLE" Content="Console Printer" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Checked="DT_CONSOLE_Checked"/>
+        <TextBox x:Name="TB_nROW" HorizontalAlignment="Left" Margin="60,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="10"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,60,0,0" Text="nRow: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="TB_nCOL" HorizontalAlignment="Left" Margin="60,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="10"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,81,0,0" Text="nColums: " TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <CheckBox x:Name="CB_BOUNDS" Content="Matrix bound" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Click="CB_BOUNDS_Click"/>
-        <TextBlock x:Name="MatrixSpace" HorizontalAlignment="Left" Margin="163,14,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="371" Width="590"/>
+        <CheckBox x:Name="CB_BOUNDS" Content="Matrix bound" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top" Click="CB_BOUNDS_Click"/>
+        <TextBlock x:Name="MatrixSpace" HorizontalAlignment="Left" Margin="163,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="393" Width="572"/>
+        <TextBox x:Name="TB_nZero" HorizontalAlignment="Left" Margin="60,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="10"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,102,0,0" Text="notZero: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="TB_maxRnd" HorizontalAlignment="Left" Margin="60,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="100"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,123,0,0" Text="MaxRnd: " TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

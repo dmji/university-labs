@@ -12,12 +12,8 @@ namespace lab1_matrix_bridge
             InicializeMatrix.init(sim, 10, 100);
             StatsMatrix a = new StatsMatrix(sim), b=new StatsMatrix(spa);
             PrinterConsole print = new PrinterConsole("[", "]");
-            Console.WriteLine("FIRST\n");
+            Console.WriteLine($"SimpleMatrix:\nSum={a.summary}\nAvg={a.avgValue}\nMax={a.maxValue}\nNotNull={a.notZero}");
             sim.Print(print);
-            Console.WriteLine($"\nSimpleMatrix:\nSum={a.summary}\nAvg={a.avgValue}\nMax={a.maxValue}\nNotNull={a.notZero}");
-            sim.Print(print);
-            Console.WriteLine("SECOND\n");
-            spa.Print(print);
             Console.WriteLine($"\nSparseMatrix:\nSum={b.summary}\nAvg={b.avgValue}\nMax={b.maxValue}\nNotNull={b.notZero}");
             spa.Print(print);
         }

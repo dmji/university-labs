@@ -8,14 +8,18 @@ namespace lab1_matrix_bridge_gui
 {
     public class PrinterWPF : IPrinter
     {
-        public string df { get; set; }
-        public string dl { get; set; }
+        string df;
+        string dl;
         TextBlock b;
+
+        public void SetDF(string DF) { df = DF; }
+        public void SetDL(string DL) { dl = DL; }
+        
         public PrinterWPF(TextBlock block,string begin = "", string end = "")
         {
             df = begin;
             dl = end;
-            b=block;
+            b=block; 
         }
         public void Print(string a, bool spaceInc = true)
         {
@@ -24,11 +28,17 @@ namespace lab1_matrix_bridge_gui
             else
                 b.Text += (a);
         }
-        public void Print(IVector v)
+
+        public void Print(IBaseElement v)
         {
-            Print(df);
-            v.Print(this);
-            Print(dl + '\n', false);
+            if(v is IVector)
+            {
+                Print(df);
+                v.Print(this);
+                Print(dl + '\n', false);
+            }
+            else
+                v.Print(this);
         }
     }
 }

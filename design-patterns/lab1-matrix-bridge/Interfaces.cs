@@ -25,10 +25,4 @@ namespace lab1_matrix_bridge
         int nRow();
         int nColumn();
     }
-
-    public interface IPrinter
-    {
-        void Print(string a, bool spaceInc = true);
-        void Print(IVector m);
-    }
 }
