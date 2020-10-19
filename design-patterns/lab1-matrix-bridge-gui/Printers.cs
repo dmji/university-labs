@@ -8,37 +8,60 @@ namespace lab1_matrix_bridge_gui
 {
     public class PrinterWPF : IPrinter
     {
-        string df;
-        string dl;
-        TextBlock b;
+        bool A = true;
+        bool E = true;
+        string AF;
+        string AL;
+        string EF;
+        string EL;
+        TextBlock t;
 
-        public void SetDF(string DF) { df = DF; }
-        public void SetDL(string DL) { dl = DL; }
-        
-        public PrinterWPF(TextBlock block,string begin = "", string end = "")
+        public PrinterWPF(TextBlock p,string bF = "", string bL = "", string ebF = "", string ebL = "")
         {
-            df = begin;
-            dl = end;
-            b=block; 
-        }
-        public void Print(string a, bool spaceInc = true)
-        {
-            if(spaceInc)
-                b.Text += (a + " ");
-            else
-                b.Text += (a);
+            AF = bF + " ";
+            AL = bL;
+            EF = ebF;
+            EL = ebL;
+            t = p;
         }
 
-        public void Print(IBaseElement v)
+        public void PrintBoard()
         {
-            if(v is IVector)
-            {
-                Print(df);
-                v.Print(this);
-                Print(dl + '\n', false);
-            }
-            else
-                v.Print(this);
+            t.Text+=(A ? AF : AL);
+            A = !A;
+        }
+        private void PrintBoardElement()
+        {
+            t.Text+=(E ? EF : EL);
+            E = !E;
+        }
+        public void Print(object m)
+        {
+            PrintBoardElement();
+            t.Text+=(m.ToString() + ' ');
+            PrintBoardElement();
+        }
+        void IPrinter.NewLine()
+        {
+            t.Text += "\n";
+        }
+
+        public void setAF(string a)
+        {
+            AF = a;
+        }
+        public void setAL(string a)
+        {
+            AL = a;
+        }
+        public void setEF(string a)
+        {
+            EF = a;
+        }
+        public void setEL(string a)
+        {
+            EL = a;
         }
     }
+
 }

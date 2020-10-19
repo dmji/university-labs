@@ -6,53 +6,46 @@ using System.Text;
 
 namespace lab1_matrix_bridge
 {
-    public class SimpleVector : IVector
+    public class SimpleVector<T> : IVector<T>
     {
-        protected List<IBaseElement> mem=new List<IBaseElement>();
-        protected int size;
-
-        public void Print(IPrinter p)
-        {
-            for(int i = 0; i < mem.Count; i++)
-                p.Print(mem[i]);
-        }
-
+        T[] mem;
         public SimpleVector(int vecSize)
         {
-            size = vecSize;
-            for(int i = 0; i < size; i++)
-                mem.Add(new CInt(0));
+            mem = new T[vecSize];
         }
-        public SimpleVector(params IBaseElement[] vals)
+        public SimpleVector(params T[] vals)
         {
-            mem = new List<IBaseElement>(vals);
-            size = mem.Count();
+            mem = vals;
         }
-        public IBaseElement Get(int index)
+        public T Get(int index)
         { 
             return mem[index]; 
         }
 
-        public bool Set(int index, IBaseElement value)
+        public bool Set(int index, T value)
         {
-            if(index < size)
+            if(index < mem.Count())
             {
                 mem[index] = value;
                 return true;
             }
             return false;
         }
-        public int Vector_Size()
+        
+        public int Size()
         {
-            return size;
-        }
-        public IBaseElement Copy()
-        {
-            return new SimpleVector(mem.ToArray());
+            return mem.Count();
         }
         public bool isZero()
         {
-            return mem.Count == 0;
+            return mem.Count() == 0;
+        }
+        public void Print(IPrinter t)
+        {
+            t.PrintBoard();
+            foreach(T a in mem)
+                t.Print(a);
+            t.PrintBoard();
         }
     }
 }

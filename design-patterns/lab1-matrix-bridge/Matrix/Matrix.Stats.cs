@@ -8,30 +8,28 @@ namespace lab1_matrix_bridge
 {
     public class StatsMatrix
     {
-        public double summary { get; }
+        public int summary { get; }
         public double avgValue { get; }
-        public double maxValue { get; }
+        public int maxValue { get; }
         public int notZero { get; }
 
-        public StatsMatrix(IMatrix mx)
+        public StatsMatrix(IMatrix<int> mx)
         {
             notZero = 0;
-            IMathElement sum = new CInt(0),
-                temp,
-                maxVal = new CInt(0);
+            int temp;
+            summary = 0;
+            maxValue = 0;
             for(int i=0;i<mx.nRow();i++)
                 for(int j=0;j<mx.nColumn();j++)
                 {
-                    temp = (IMathElement)(mx.Get(i, j));
-                    if(!temp.isZero())
+                    temp = mx.Get(i, j);
+                    if(temp!=0)
                         notZero++;
-                    sum += temp;
-                    if(maxVal < temp)
-                        maxVal = temp;
+                    summary += temp;
+                    if(maxValue < temp)
+                        maxValue = temp;
                 }
-            summary = Convert.ToDouble(sum.Value());
-            avgValue = summary / (mx.nColumn() * mx.nRow());
-            maxValue = Convert.ToDouble(maxVal.Value());
+            avgValue = summary / (double)(mx.nColumn() * mx.nRow());
         }
     }
 }

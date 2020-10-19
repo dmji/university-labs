@@ -30,7 +30,7 @@ namespace lab1_matrix_bridge_gui
 
         
         bool bconsole = true;
-        IMatrix matr=null;
+        IMatrix<int> matr=null;
         IPrinter print=null;
         string DL = "", DF = "";
 
@@ -41,9 +41,11 @@ namespace lab1_matrix_bridge_gui
 
         private void BTN_SIMPLE_Click(object sender, RoutedEventArgs e)
         {
+            if(!bconsole)
+                Console.Clear();
             if(TB_nCOL.Text.Length > 0 && TB_nROW.Text.Length > 0 && TB_nZero.Text.Length>0 && TB_maxRnd.Text.Length>0)
             {
-                matr = new SimpleMatrix(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
+                matr = new SimpleMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
                 InicializeMatrix.init(matr, Convert.ToInt32(TB_nZero.Text), Convert.ToInt32(TB_maxRnd.Text));
                 MatrixSpace.Text = "";
                 matr.Print(print);
@@ -52,9 +54,11 @@ namespace lab1_matrix_bridge_gui
 
         private void BTN_SPARCE_Click(object sender, RoutedEventArgs e)
         {
+            if(!bconsole)
+                Console.Clear();
             if(TB_nCOL.Text.Length > 0 && TB_nROW.Text.Length > 0 && TB_nZero.Text.Length > 0 && TB_maxRnd.Text.Length > 0)
             {
-                matr = new SparseMatrix(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
+                matr = new SparseMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
                 InicializeMatrix.init(matr, Convert.ToInt32(TB_nZero.Text), Convert.ToInt32(TB_maxRnd.Text));
                 MatrixSpace.Text = "";
                 matr.Print(print);
@@ -63,14 +67,17 @@ namespace lab1_matrix_bridge_gui
 
         private void CB_BOUNDS_Click(object sender, RoutedEventArgs e)
         {
+            if(!bconsole)
+                Console.Clear();
+            MatrixSpace.Text = "";
             if(CB_BOUNDS.IsChecked == true)
             {
                 DL = "]";
                 DF = "[";
                 if(print != null)
                 {
-                    print.SetDF(DF);
-                    print.SetDL(DL);
+                    print.setAF(DF);
+                    print.setAL(DL);
                 }
             }
             else
@@ -79,14 +86,16 @@ namespace lab1_matrix_bridge_gui
                 DF = "";
                 if(print != null)
                 {
-                    print.SetDF(DF);
-                    print.SetDL(DL);
+                    print.setAF(DF);
+                    print.setAL(DL);
                 }
             }
         }
 
         private void DT_WPF_Checked(object sender, RoutedEventArgs e)
         {
+            if(!bconsole)
+                Console.Clear();
             MatrixSpace.Text = "";
             print = new PrinterWPF(MatrixSpace,DF,DL);
             if(matr!=null)

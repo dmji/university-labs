@@ -6,29 +6,23 @@ using System.Text;
 
 namespace lab1_matrix_bridge
 {
-    public class SimpleMatrix : СertainMatrix
+    public class SimpleMatrix<T> : СertainMatrix<T>
     {
         public SimpleMatrix(int rowsCount, int colsCount)
         {
             rows = rowsCount;
             cols = colsCount;
-            mem = new SimpleVector(rows);
+            mem = new SimpleVector<IVector<T>>(rows);
             for(int i = 0; i < rows; i++)
-                mem.Set(i, new SimpleVector(cols));
+                mem.Set(i, new SimpleVector<T>(cols));
         }
-        public override IBaseElement Get(int iRow, int iColumn)
+        public override T Get(int iRow, int iColumn)
         {
-            return ((SimpleVector)mem.Get(iRow)).Get(iColumn);
+            return ((SimpleVector<T>)mem.Get(iRow)).Get(iColumn);
         }
-        public override bool Set(int iRow, int iColumn, IBaseElement value)
+        public override bool Set(int iRow, int iColumn, T value)
         {
-            return ((SimpleVector)mem.Get(iRow)).Set(iColumn, value);
-        }
-        public override IBaseElement Copy()
-        {
-            SimpleMatrix res = new SimpleMatrix(rows, cols);
-            res.mem = new SimpleVector(mem.Copy());
-            return res;
+            return ((SimpleVector<T>)mem.Get(iRow)).Set(iColumn, value);
         }
     }
 }

@@ -2,22 +2,30 @@
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace lab1_matrix_bridge
 {
-    public abstract class СertainMatrix : IMatrix
+    public abstract class СertainMatrix<T> : IMatrix<T>
     {
-        protected IVector mem;
+        protected IVector<IVector<T>> mem;
         protected int rows;
         protected int cols;
 
         public void Print(IPrinter p)
         {
-            mem.Print(p);
+            for(int i = 0; i < rows; i++)
+            {
+                if(mem.Get(i) != null)
+                {
+                    mem.Get(i).Print(p);
+                    p.NewLine();
+                }
+            }
         }
-        public abstract IBaseElement Get(int iRow, int iColumn);
-        public abstract bool Set(int iRow, int iColumn, IBaseElement value);
+        public abstract T Get(int iRow, int iColumn);
+        public abstract bool Set(int iRow, int iColumn, T value);
         public int nRow()
         {
             return cols;
@@ -25,11 +33,6 @@ namespace lab1_matrix_bridge
         public int nColumn()
         {
             return rows;
-        }
-        public abstract IBaseElement Copy();
-        public bool isZero()
-        {
-            return mem.Vector_Size() == 0;
         }
     }
 }

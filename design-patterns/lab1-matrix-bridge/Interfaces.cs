@@ -4,25 +4,20 @@ using System.Text;
 
 namespace lab1_matrix_bridge
 {
-    public interface IBaseElement
+    public interface IVector<T>
     {
-        IBaseElement Copy();
-        bool isZero();
-        void Print(IPrinter p);
+        T Get(int index);
+        bool Set(int index, T value);
+        int Size();
+        void Print(IPrinter t);
     }
-
-    public interface IVector : IBaseElement
+    
+    public interface IMatrix<T>
     {
-        IBaseElement Get(int index);
-        bool Set(int index, IBaseElement value);
-        int Vector_Size();
-    }
-
-    public interface IMatrix : IBaseElement
-    {
-        IBaseElement Get(int iRow, int iColumn);
-        bool Set(int iRow, int iColumn, IBaseElement value);
+        T Get(int iRow, int iColumn);
+        bool Set(int iRow, int iColumn, T value);
         int nRow();
         int nColumn();
+        public void Print(IPrinter p);
     }
 }

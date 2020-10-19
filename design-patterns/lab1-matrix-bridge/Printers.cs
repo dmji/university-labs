@@ -7,42 +7,67 @@ namespace lab1_matrix_bridge
 {
     public interface IPrinter
     {
-        void Print(string a, bool spaceInc = true);
-        void Print(IBaseElement m);
-        void SetDF(string df);
-        void SetDL(string dl);
+        public void PrintBoard();
+        public void NewLine();
+        void Print(object m);
+        void setAF(string a);
+        void setAL(string a);
+        void setEF(string a);
+        void setEL(string a);
     }
-
+    
     public class PrinterConsole : IPrinter
     {
-        string df;
-        string dl;
-
-        public void SetDF(string DF) { df = DF; }
-        public void SetDL(string DL) { dl = DL; }
-        public PrinterConsole(string begin="", string end="")
+        bool A=true;
+        bool E=true;
+        string AF;
+        string AL;
+        string EF;
+        string EL;
+        public PrinterConsole(string bF="", string bL="", string ebF="", string ebL="")
         {
-            df = begin;
-            dl = end;
-        }
-        public void Print(string a,bool spaceInc=true)
-        {            
-            if(spaceInc)
-                Console.Write(a + " ");
-            else
-                Console.Write(a);
+            AF = bF+" ";
+            AL = bL;
+            EF = ebF;
+            EL = ebL;
         }
 
-        public void Print(IBaseElement v)
+        public void PrintBoard() 
         {
-            if(v is IVector)
-            {
-                Print(df);
-                v.Print(this);
-                Print(dl + '\n', false);
-            }
-            else
-                v.Print(this);
+            Console.Write(A ? AF : AL);
+            A = !A;
+        }
+        private void PrintBoardElement()
+        {
+            Console.Write(E ? EF : EL);
+            E = !E;
+        }
+        public void Print(object m)
+        {
+            PrintBoardElement();
+            Console.Write(m.ToString() + ' ');
+            PrintBoardElement();
+        }
+        void IPrinter.NewLine()
+        {
+            Console.WriteLine();
+        }
+
+        public void setAF(string a)
+        { 
+            AF = a; 
+        }
+        public void setAL(string a)
+        {
+            AL = a;
+        }
+        public void setEF(string a)
+        {
+            EF = a;
+        }
+        public void setEL(string a)
+        {
+            EL = a;
         }
     }
 }
