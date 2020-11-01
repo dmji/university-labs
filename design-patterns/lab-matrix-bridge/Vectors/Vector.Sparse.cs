@@ -1,4 +1,6 @@
-﻿namespace lab1_matrix_bridge
+﻿using System.Linq;
+
+namespace lab_matrix_bridge
 {
      public class SparseVector<T> : IVector<T>
     {
@@ -10,6 +12,24 @@
         {
             size = vecSize;
         }
+
+        public int findFirst(T value)
+        {
+            if(memValue != null)
+            {
+                var bContaint = memValue.Contains(value);
+                if(bContaint)
+                {
+                    for(int i = 0; i < memValue.Length; i++)
+                    {
+                        if(memValue[i].Equals(value))
+                            return memIndex[i];
+                    }
+                }
+            }
+            return -1;
+        }
+
         public SparseVector(SparseVector<T> src)
         {
             size = src.size;
@@ -83,17 +103,7 @@
             }
             return false;
         }
-        public int Size()
-        {
-            return size;
-        }
-
-        public void Print(IPrinter t)
-        {
-            t.PrintBoard();
-            foreach(T a in memValue)
-                t.Print(a);
-            t.PrintBoard();
-        }
+        public int Size() => size;
+        public int Length() => memIndex.Length;
     }
 }

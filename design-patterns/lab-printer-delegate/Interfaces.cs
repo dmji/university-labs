@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace lab0
+namespace lab_printer_delegate
 {
     public interface IPrinter
     {

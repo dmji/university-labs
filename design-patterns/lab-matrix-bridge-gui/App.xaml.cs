@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace lab1_matrix_bridge_gui
+namespace lab_matrix_bridge_gui
 {
     /// <summary>
     /// Interaction logic for App.xaml

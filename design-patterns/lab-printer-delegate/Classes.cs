@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace lab0
+namespace lab_printer_delegate
 {
     public class PrinterDefault : IPrinter
     {

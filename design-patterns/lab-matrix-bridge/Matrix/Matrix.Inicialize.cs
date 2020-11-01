@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lab1_matrix_bridge
+namespace lab_matrix_bridge
 {
     public class InicializeMatrix
     {
@@ -9,7 +9,7 @@ namespace lab1_matrix_bridge
             while(notZero > 0)
             {
                 Random r = new Random();
-                int a = r.Next(0, mx.nRow()), b = r.Next(0, mx.nColumn());
+                int a = r.Next(0, mx.nRow()), b = r.Next(0, mx.nCol());
                 if(mx.Get(a, b)==0)
                 {
                     mx.Set(a, b, r.Next(0, maxValue));

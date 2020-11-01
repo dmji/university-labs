@@ -3,8 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>lab0-printer-delegate</AssemblyName>
-    <RootNamespace>lab0</RootNamespace>
+    <AssemblyName>lab-printer-delegate</AssemblyName>
+    <RootNamespace>lab_printer_delegate</RootNamespace>
   </PropertyGroup>
 
 </Project>

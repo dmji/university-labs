@@ -3,12 +3,12 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>lab1_matrix_bridge_gui</RootNamespace>
+    <RootNamespace>lab_matrix_bridge_gui</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\lab1-matrix-bridge\lab1-matrix-bridge.csproj" />
+    <ProjectReference Include="..\lab-matrix-bridge\lab-matrix-bridge.csproj" />
   </ItemGroup>
 
 </Project>

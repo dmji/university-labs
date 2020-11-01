@@ -1,4 +1,4 @@
-﻿namespace lab1_matrix_bridge
+﻿namespace lab_matrix_bridge
 {
     public class StatsMatrix
     {
@@ -14,7 +14,7 @@
             summary = 0;
             maxValue = 0;
             for(int i=0;i<mx.nRow();i++)
-                for(int j=0;j<mx.nColumn();j++)
+                for(int j=0;j<mx.nCol();j++)
                 {
                     temp = mx.Get(i, j);
                     if(temp!=0)
@@ -23,7 +23,7 @@
                     if(maxValue < temp)
                         maxValue = temp;
                 }
-            avgValue = summary / (double)(mx.nColumn() * mx.nRow());
+            avgValue = summary / (double)(mx.nCol() * mx.nRow());
         }
     }
 }

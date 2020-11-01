@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lab0
+namespace lab_printer_delegate
 {
     class Program
     {

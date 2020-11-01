@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "auditory-simulation", "auditory-simulation\auditory-simulation.csproj", "{AFCEDE9D-C5AC-47C8-9DAA-9EAC8F2F01CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lab0-printer-delegate", "lab0-printer-delegate\lab0-printer-delegate.csproj", "{C5F53C14-4C64-4510-9EE8-F2FD1A7A8553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lab-printer-delegate", "lab-printer-delegate\lab-printer-delegate.csproj", "{C5F53C14-4C64-4510-9EE8-F2FD1A7A8553}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab1-matrix-bridge", "lab1-matrix-bridge\lab1-matrix-bridge.csproj", "{DCF45349-8C71-48A5-861B-670B86D27F2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lab-matrix-bridge", "lab-matrix-bridge\lab-matrix-bridge.csproj", "{DCF45349-8C71-48A5-861B-670B86D27F2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab1-matrix-bridge-gui", "lab1-matrix-bridge-gui\lab1-matrix-bridge-gui.csproj", "{0E207618-BA33-48DC-A048-99AC99116C51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lab-matrix-bridge-gui", "lab-matrix-bridge-gui\lab-matrix-bridge-gui.csproj", "{0E207618-BA33-48DC-A048-99AC99116C51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

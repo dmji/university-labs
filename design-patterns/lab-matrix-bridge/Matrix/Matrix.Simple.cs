@@ -1,18 +1,13 @@
-﻿namespace lab1_matrix_bridge
+﻿namespace lab_matrix_bridge
 {
     public class SimpleMatrix<T> : СertainMatrix<T>
     {
         public SimpleMatrix(int rowsCount, int colsCount) : base(rowsCount, colsCount) { }
+        public SimpleMatrix(IMatrix<T> src) : base(src) { }
 
-        protected override bool isEmpty(int rows,int cols)
-        {
-            return !(rows < nRow() && cols < nColumn());
-        }
-
-        protected override IVector<T> InitRow()
-        {
-            return new SimpleVector<T>(nColumn());
-        }
+        public override bool isEmpty(int rows,int cols) =>  false /*!(rows < nRow() && cols < nCol())*/;
+        
+        protected override IVector<T> InitRow() => new SimpleVector<T>(nCol());
 
         protected override IVector<IVector<T>> InitMatr() 
         {
