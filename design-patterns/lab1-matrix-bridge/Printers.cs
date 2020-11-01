@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace lab1_matrix_bridge
 {
     public interface IPrinter
     {
-        public void PrintBoard();
-        public void NewLine();
-        void Print(object m);
+        void PrintBoard(bool bNoSkipSign = true);
+        void PrintBoardElement(bool bNoSkipSign = true);
+        void Print<T>(T m);
         void setAF(string a);
         void setAL(string a);
         void setEF(string a);
@@ -18,12 +15,9 @@ namespace lab1_matrix_bridge
     
     public class PrinterConsole : IPrinter
     {
-        bool A=true;
-        bool E=true;
-        string AF;
-        string AL;
-        string EF;
-        string EL;
+        bool A = true, E = true;
+        string AF, AL, EF, EL;
+
         public PrinterConsole(string bF="", string bL="", string ebF="", string ebL="")
         {
             AF = bF+" ";
@@ -32,25 +26,23 @@ namespace lab1_matrix_bridge
             EL = ebL;
         }
 
-        public void PrintBoard() 
+        public void PrintBoard(bool bNoSkipSign = true) 
         {
-            Console.Write(A ? AF : AL);
+            if(bNoSkipSign)
+                Console.Write(A ? AF : AL+"\n");
             A = !A;
         }
-        private void PrintBoardElement()
+        public void PrintBoardElement(bool bNoSkipSign = true)
         {
-            Console.Write(E ? EF : EL);
+            if(bNoSkipSign)
+                Console.Write(E ? EF : EL);
             E = !E;
         }
-        public void Print(object m)
+        public void Print<T>(T m)
         {
             PrintBoardElement();
             Console.Write(m.ToString() + ' ');
             PrintBoardElement();
-        }
-        void IPrinter.NewLine()
-        {
-            Console.WriteLine();
         }
 
         public void setAF(string a)

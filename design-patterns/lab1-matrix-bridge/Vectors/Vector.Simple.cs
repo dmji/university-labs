@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace lab1_matrix_bridge
 {
     public class SimpleVector<T> : IVector<T>
     {
         T[] mem;
-        public SimpleVector(int vecSize)
+        public SimpleVector(int vecSize=0)
         {
             mem = new T[vecSize];
         }
@@ -36,10 +32,7 @@ namespace lab1_matrix_bridge
         {
             return mem.Count();
         }
-        public bool isZero()
-        {
-            return mem.Count() == 0;
-        }
+       
         public void Print(IPrinter t)
         {
             t.PrintBoard();

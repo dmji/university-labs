@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using lab1_matrix_bridge;
 
 namespace lab1_matrix_bridge_gui
@@ -14,9 +11,9 @@ namespace lab1_matrix_bridge_gui
         string AL;
         string EF;
         string EL;
-        TextBlock t;
+        Grid t;
 
-        public PrinterWPF(TextBlock p,string bF = "", string bL = "", string ebF = "", string ebL = "")
+        public PrinterWPF(Grid p,string bF = "", string bL = "", string ebF = "", string ebL = "")
         {
             AF = bF + " ";
             AL = bL;
@@ -25,25 +22,22 @@ namespace lab1_matrix_bridge_gui
             t = p;
         }
 
-        public void PrintBoard()
+        public void PrintBoard(bool bNoSkipSign = true)
         {
+            t.Resources.Add()
             t.Text+=(A ? AF : AL);
             A = !A;
         }
-        private void PrintBoardElement()
+        public void PrintBoardElement(bool bNoSkipSign = true)
         {
             t.Text+=(E ? EF : EL);
             E = !E;
         }
-        public void Print(object m)
+        public void Print<T>(T m)
         {
             PrintBoardElement();
             t.Text+=(m.ToString() + ' ');
             PrintBoardElement();
-        }
-        void IPrinter.NewLine()
-        {
-            t.Text += "\n";
         }
 
         public void setAF(string a)

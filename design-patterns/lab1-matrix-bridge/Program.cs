@@ -17,6 +17,10 @@ namespace lab1_matrix_bridge
             sim.Print(print);
             Console.WriteLine($"\nSparseMatrix:\nSum={b.summary}\nAvg={b.avgValue}\nMax={b.maxValue}\nNotNull={b.notZero}");
             spa.Print(print);
+
+            MatrixDecoreAssign<int> dr = new MatrixDecoreAssign<int>(spa);
+            Console.WriteLine($"\nAssignedMatrix:\n");
+            dr.Print(print);
         }
     }
 }

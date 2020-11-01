@@ -22,11 +22,11 @@
         <TextBox x:Name="TB_nCOL" HorizontalAlignment="Left" Margin="60,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="10"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,81,0,0" Text="nColums: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <CheckBox x:Name="CB_BOUNDS" Content="Matrix bound" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top" Click="CB_BOUNDS_Click"/>
-        <TextBlock x:Name="MatrixSpace" HorizontalAlignment="Left" Margin="163,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="393" Width="572"/>
         <TextBox x:Name="TB_nZero" HorizontalAlignment="Left" Margin="60,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="10"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,102,0,0" Text="notZero: " TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox x:Name="TB_maxRnd" HorizontalAlignment="Left" Margin="60,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81" Text="100"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,123,0,0" Text="MaxRnd: " TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Grid x:Name="MatrixGrid" Margin="176,20,27,32"/>
 
     </Grid>
 </Window>

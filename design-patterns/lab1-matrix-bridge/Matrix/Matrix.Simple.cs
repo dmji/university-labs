@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Text;
-
-namespace lab1_matrix_bridge
+﻿namespace lab1_matrix_bridge
 {
     public class SimpleMatrix<T> : СertainMatrix<T>
     {
-        public SimpleMatrix(int rowsCount, int colsCount)
+        public SimpleMatrix(int rowsCount, int colsCount) : base(rowsCount, colsCount) { }
+
+        protected override bool isEmpty(int rows,int cols)
         {
-            rows = rowsCount;
-            cols = colsCount;
-            mem = new SimpleVector<IVector<T>>(rows);
-            for(int i = 0; i < rows; i++)
-                mem.Set(i, new SimpleVector<T>(cols));
+            return !(rows < nRow() && cols < nColumn());
         }
-        public override T Get(int iRow, int iColumn)
+
+        protected override IVector<T> InitRow()
         {
-            return ((SimpleVector<T>)mem.Get(iRow)).Get(iColumn);
+            return new SimpleVector<T>(nColumn());
         }
-        public override bool Set(int iRow, int iColumn, T value)
+
+        protected override IVector<IVector<T>> InitMatr() 
         {
-            return ((SimpleVector<T>)mem.Get(iRow)).Set(iColumn, value);
+            var mem = new SimpleVector<IVector<T>>(nRow());
+            for(int i = 0; i < nRow(); i++)
+                mem.Set(i,InitRow());
+            return mem; 
         }
     }
 }

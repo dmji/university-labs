@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Text;
-
-namespace lab1_matrix_bridge
+﻿namespace lab1_matrix_bridge
 {
     public class StatsMatrix
     {
