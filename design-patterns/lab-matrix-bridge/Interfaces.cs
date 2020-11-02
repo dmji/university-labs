@@ -5,7 +5,6 @@
         T Get(int index);
         bool Set(int index, T value);
         int Size();
-        int findFirst(T value);
     }
     
     public interface IMatrix<T>

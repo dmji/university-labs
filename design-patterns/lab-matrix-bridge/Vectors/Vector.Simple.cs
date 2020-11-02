@@ -24,22 +24,5 @@ namespace lab_matrix_bridge
             }
             return false;
         }
-
-        public int findFirst(T value)
-        {
-            if(mem != null)
-            {
-                var bContaint = mem.Contains(value);
-                if(bContaint)
-                {
-                    for(int i = 0; i < mem.Length; i++)
-                    {
-                        if(mem[i].Equals(value))
-                            return i;
-                    }
-                }
-            }
-            return -1;
-        }
     }
 }

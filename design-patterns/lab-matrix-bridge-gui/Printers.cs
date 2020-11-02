@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
-using lab_matrix_bridge;
 using System.Collections;
 using System.Data;
 using System.Globalization;
@@ -97,7 +96,7 @@ namespace lab_matrix_bridge_gui
         {
             t = p;
             bBorder = border;
-            bElemendBorder = bElemendBorder;
+            bElemendBorder = elementBorder;
         }
 
         public void ReleasePrint()

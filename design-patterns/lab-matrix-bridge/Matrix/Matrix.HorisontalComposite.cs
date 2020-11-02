@@ -90,5 +90,10 @@ namespace lab_matrix_bridge
         {
             mem.Set(size++, mx);
         }
+
+        public bool Set(int i, IMatrix<T> mx)
+        {
+            return mem.Set(i, mx);
+        }
     }
 }

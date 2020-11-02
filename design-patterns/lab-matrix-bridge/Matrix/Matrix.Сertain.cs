@@ -1,30 +1,13 @@
 ﻿namespace lab_matrix_bridge
 {
-    public abstract class СertainMatrix<T> : IMatrix<T>
+    public abstract class AMatrix<T> : IMatrix<T>
     {
-        IVector<IVector<T>> mem;
-        int rows;
-        int cols;
-
-        protected abstract IVector<IVector<T>> InitMatr();
-        protected abstract IVector<T> InitRow();
+        public abstract T Get(int iRow, int iColumn);
+        public abstract IMatrix<T> getOriginal();
         public abstract bool isEmpty(int row, int col);
-
-        protected СertainMatrix(int nrows, int ncols)
-        {
-            rows = nrows;
-            cols = ncols;
-            mem = InitMatr();
-        }
-        
-        protected СertainMatrix(IMatrix<T> src) :this(src.nRow(),src.nCol())
-        {
-            for(int i = 0;i<rows;i++)
-                for(int j = 0;j<cols;j++)
-                {
-                    Set(i, j, src.Get(i, j));
-                }
-        }
+        public abstract int nCol();
+        public abstract int nRow();
+        public abstract bool Set(int iRow, int iColumn, T value);
         public void Print(IPrinter p)
         {
             for(int i = 0; i < nRow(); i++)
@@ -34,7 +17,7 @@
                 {
                     if(!isEmpty(i, j))
                     {
-                        if(printed==0)
+                        if(printed == 0)
                             p.PrintBorder();
                         p.PrintBorderElement();
                         p.Print<T>(Get(i, j));
@@ -47,28 +30,51 @@
             }
             p.ReleasePrint();
         }
-        public int nRow() => rows;
-        public int nCol() => cols;
+    }
+
+    public abstract class СertainMatrix<T> : AMatrix<T>
+    {
+        IVector<IVector<T>> mem;
+        int rows;
+        int cols;
+
+        protected abstract IVector<IVector<T>> InitMatr();
+        protected abstract IVector<T> InitRow();
+
+        protected СertainMatrix(int nrows, int ncols)
+        {
+            rows = nrows;
+            cols = ncols;
+            mem = InitMatr();
+        }
+
+        protected СertainMatrix(IMatrix<T> src) : this(src.nRow(), src.nCol())
+        {
+            for(int i = 0;i<rows;i++)
+                for(int j = 0;j<cols;j++)
+                    Set(i, j, src.Get(i, j));
+        }
         
-        public T Get(int iRow, int iColumn)
+        public override int nRow() => rows;
+        public override int nCol() => cols;
+        
+        public override T Get(int iRow, int iColumn)
         {
             if(nRow() > iRow)
             {
-                var t = mem.Get(iRow);
-                if(t != default(IVector<T>))
-                    return t.Get(iColumn);
+                if(mem.Get(iRow) != default(IVector<T>))
+                    return mem.Get(iRow).Get(iColumn);
             }
             return default(T);
         }
-        public bool Set(int iRow, int iColumn, T value)
+        public override bool Set(int iRow, int iColumn, T value)
         {
-            var t = mem.Get(iRow);
-            if(t == default(IVector<T>))
+            if(mem.Get(iRow) == default(IVector<T>))
                 mem.Set(iRow,InitRow());
             return mem.Get(iRow).Set(iColumn, value);
         }
 
-        public IMatrix<T> getOriginal() => this;
+        public override IMatrix<T> getOriginal() => this;
     }
 }
 
