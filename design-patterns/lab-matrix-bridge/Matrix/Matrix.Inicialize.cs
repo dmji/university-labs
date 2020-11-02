@@ -6,9 +6,11 @@ namespace lab_matrix_bridge
     {
         public static bool init(IMatrix<int> mx, int notZero, int maxValue)
         {
+            if(notZero > mx.nCol() * mx.nRow())
+                notZero = mx.nRow() * mx.nCol();
+            Random r = new Random();
             while(notZero > 0)
             {
-                Random r = new Random();
                 int a = r.Next(0, mx.nRow()), b = r.Next(0, mx.nCol());
                 if(mx.Get(a, b)==0)
                 {

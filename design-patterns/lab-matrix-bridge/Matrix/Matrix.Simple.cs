@@ -4,11 +4,8 @@
     {
         public SimpleMatrix(int rowsCount, int colsCount) : base(rowsCount, colsCount) { }
         public SimpleMatrix(IMatrix<T> src) : base(src) { }
-
-        public override bool isEmpty(int rows,int cols) =>  false /*!(rows < nRow() && cols < nCol())*/;
-        
+        public override bool isEmpty(int rows,int cols) =>  false;
         protected override IVector<T> InitRow() => new SimpleVector<T>(nCol());
-
         protected override IVector<IVector<T>> InitMatr() 
         {
             var mem = new SimpleVector<IVector<T>>(nRow());

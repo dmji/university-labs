@@ -10,13 +10,12 @@
         public StatsMatrix(IMatrix<int> mx)
         {
             notZero = 0;
-            int temp;
             summary = 0;
             maxValue = 0;
             for(int i=0;i<mx.nRow();i++)
                 for(int j=0;j<mx.nCol();j++)
                 {
-                    temp = mx.Get(i, j);
+                    int temp = mx.Get(i, j);
                     if(temp!=0)
                         notZero++;
                     summary += temp;

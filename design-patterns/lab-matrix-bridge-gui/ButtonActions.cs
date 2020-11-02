@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using lab_matrix_bridge;
+using System.Threading;
 
 namespace lab_matrix_bridge_gui
 {

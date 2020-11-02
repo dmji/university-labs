@@ -1,6 +1,6 @@
 ﻿namespace lab_matrix_bridge
 {
-    public class ReAssignMatrix<T> : IMatrix<T>
+    public class ReAssignMatrix<T> : AMatrix<T>
     {
         IMatrix<T> mem;
         SparseVector<int> rows;
@@ -11,53 +11,27 @@
             cols = new SparseVector<int>(nCol());
             rows = new SparseVector<int>(nRow());
         }
-
-        public int nCol() => mem.nCol();
-        public int nRow() => mem.nRow();
-        
-        public bool isEmpty(int iRow, int iColumn)
+        public override int nCol() => mem.nCol();
+        public override int nRow() => mem.nRow();
+        public override bool isEmpty(int iRow, int iColumn)
         {
             int fRow = rows.findFirst(iRow);
             int fCol = cols.findFirst(iColumn);
             return mem.isEmpty(fRow == -1 ? iRow : fRow, fCol == -1 ? iColumn : fCol);
         }
-        public void Print(IPrinter p)
-        {
-            for(int i = 0; i < nRow(); i++)
-            {
-                int printed = 0;
-                for(int j = 0; j < nCol(); j++)
-                {
-                    if(!isEmpty(i, j))
-                    {
-                        if(printed == 0)
-                            p.PrintBorder();
-                        p.PrintBorderElement();
-                        p.Print<T>(Get(i, j));
-                        p.PrintBorderElement();
-                        printed++;
-                    }
-                }
-                if(printed > 0)
-                    p.PrintBorder();
-            }
-            p.ReleasePrint();
-        }
-
-        public T Get(int iRow, int iColumn)
+        public override T Get(int iRow, int iColumn)
         {
             int fRow = rows.findFirst(iRow);
             int fCol = cols.findFirst(iColumn);
             return mem.Get(fRow == -1 ? iRow : fRow, fCol == -1 ? iColumn : fCol);
         }
-
-        public bool Set(int iRow, int iColumn, T value)
+        public override bool Set(int iRow, int iColumn, T value)
         {
             int fRow = rows.findFirst(iRow);
             int fCol = cols.findFirst(iColumn);
             return mem.Set(fRow == -1 ? iRow : fRow, fCol == -1 ? iColumn : fCol, value);
         }
-
+        public override IMatrix<T> getOriginal() => mem.getOriginal();
         public bool SwapCols(int i1, int i2)
         {
             if(i1 >= 0 && i1 < nCol() && i2 >= 0 && i2 < nCol())
@@ -78,7 +52,5 @@
             }
             return false;
         }
-
-        public IMatrix<T> getOriginal() => mem;
     }
 }

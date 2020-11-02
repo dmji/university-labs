@@ -37,27 +37,22 @@
         IVector<IVector<T>> mem;
         int rows;
         int cols;
-
-        protected abstract IVector<IVector<T>> InitMatr();
-        protected abstract IVector<T> InitRow();
-
         protected СertainMatrix(int nrows, int ncols)
         {
             rows = nrows;
             cols = ncols;
             mem = InitMatr();
         }
-
         protected СertainMatrix(IMatrix<T> src) : this(src.nRow(), src.nCol())
         {
-            for(int i = 0;i<rows;i++)
-                for(int j = 0;j<cols;j++)
+            for(int i = 0; i < rows; i++)
+                for(int j = 0; j < cols; j++)
                     Set(i, j, src.Get(i, j));
         }
-        
+        protected abstract IVector<IVector<T>> InitMatr();
+        protected abstract IVector<T> InitRow();
         public override int nRow() => rows;
         public override int nCol() => cols;
-        
         public override T Get(int iRow, int iColumn)
         {
             if(nRow() > iRow)
@@ -73,7 +68,6 @@
                 mem.Set(iRow,InitRow());
             return mem.Get(iRow).Set(iColumn, value);
         }
-
         public override IMatrix<T> getOriginal() => this;
     }
 }
