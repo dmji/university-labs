@@ -16,6 +16,7 @@
         void Print(IPrinter p);
         bool isEmpty(int row, int col);
         IMatrix<T> getOriginal();
+        IMatrix<T> Clone();
     }
 
     public interface IPrinter

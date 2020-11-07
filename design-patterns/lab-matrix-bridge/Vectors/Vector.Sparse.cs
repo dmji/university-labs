@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace lab_matrix_bridge
 {
@@ -10,6 +11,8 @@ namespace lab_matrix_bridge
 
         public SparseVector(int vecSize)
         {
+            memValue = new T[0];
+            memIndex = new int[0];
             size = vecSize;
         }
 
@@ -71,32 +74,50 @@ namespace lab_matrix_bridge
                 }
                 if(fInd != -1)
                 {
-                    memValue[fInd] = value;
+                    if(value == null || value.Equals(default(T)))
+                    {
+                        T[] vnew = new T[memValue.Length - 1];
+                        int[] inew = new int[memIndex.Length - 1];
+                        int ind = 0;
+                        for(int i = 0; i < vnew.Length; i++)
+                        {
+                            if(fInd != i)
+                            {
+                                vnew[ind] = memValue[i];
+                                inew[ind++] = memIndex[i];
+                            }
+                        }
+                        memValue = vnew;
+                        memIndex = inew;
+                        return true;
+                    }
+                    else
+                        memValue[fInd] = value;
                     return true;
                 }
                 else
                 {
                     T[] vnew = new T[memValue.Length + 1];
-                    for(int i=0;i<vnew.Length;i++)
+                    int[] inew = new int[memIndex.Length + 1];
+                    for(int i = 0; i < vnew.Length; i++)
                     {
                         if(fPast > i)
+                        {
                             vnew[i] = memValue[i];
+                            inew[i] = memIndex[i];
+                        }
                         else if(fPast == i)
+                        {
                             vnew[i] = value;
+                            inew[i] = index;
+                        }
                         else
+                        {
                             vnew[i] = memValue[i - 1];
+                            inew[i] = memIndex[i - 1];
+                        }
                     }
                     memValue = vnew;
-                    int[] inew = new int[memIndex.Length + 1];
-                    for(int i = 0; i < inew.Length; i++)
-                    {
-                        if(fPast > i)
-                            inew[i] = memIndex[i];
-                        else if(fPast == i)
-                            inew[i] = index;
-                        else
-                            inew[i] = memIndex[i - 1];
-                    }
                     memIndex = inew;
                     return true;
                 }
@@ -105,5 +126,13 @@ namespace lab_matrix_bridge
         }
         public int Size() => size;
         public int Length() => memIndex.Length;
+
+        public T PopBack()
+        {
+            T sval = memValue[Length()-1];
+            Set(Length() - 1, default(T));
+            return sval;
+        }
+        public bool Add(T val) => Set(Length(), val);
     }
 }

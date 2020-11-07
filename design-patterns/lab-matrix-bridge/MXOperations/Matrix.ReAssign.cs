@@ -11,6 +11,13 @@
             cols = new SparseVector<int>(nCol());
             rows = new SparseVector<int>(nRow());
         }
+        public ReAssignMatrix(ReAssignMatrix<T> src)
+        {
+            mem = mem;
+            cols = new SparseVector<int>(src.cols);
+            rows = new SparseVector<int>(src.rows);
+        }
+        public override IMatrix<T> Clone() => new ReAssignMatrix<T>(this);
         public override int nCol() => mem.nCol();
         public override int nRow() => mem.nRow();
         public override bool isEmpty(int iRow, int iColumn)

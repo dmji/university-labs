@@ -13,6 +13,12 @@ namespace lab_matrix_bridge
             foreach(var a in vals)
                 mem.Set(size++, a);
         }
+        public HorisontalCompositeMatrix(HorisontalCompositeMatrix<T> src)
+        {
+            mem = new SparseVector<IMatrix<T>>(src.mem);
+            size = src.size;
+        }
+        public override IMatrix<T> Clone() => new HorisontalCompositeMatrix<T>(this);
         public override int nCol()
         {
             int res = 0;

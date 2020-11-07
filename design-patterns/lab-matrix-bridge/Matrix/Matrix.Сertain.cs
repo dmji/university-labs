@@ -30,6 +30,7 @@
             }
             p.ReleasePrint();
         }
+        public abstract IMatrix<T> Clone();
     }
 
     public abstract class СertainMatrix<T> : AMatrix<T>

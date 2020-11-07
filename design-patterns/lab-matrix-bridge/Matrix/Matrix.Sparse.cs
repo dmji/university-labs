@@ -7,5 +7,6 @@
         public override bool isEmpty(int rows, int cols) => Get(rows,cols).Equals(default(T));
         protected override IVector<T> InitRow() => new SparseVector<T>(nCol());
         protected override IVector<IVector<T>> InitMatr() => new SparseVector<IVector<T>>(nRow());
+        public override IMatrix<T> Clone() => new SimpleMatrix<T>(this);
     }
 }

@@ -13,6 +13,9 @@
                 mem.Set(i,InitRow());
             return mem; 
         }
+
+        public override IMatrix<T> Clone() => new SimpleMatrix<T>(this);
+
     }
 }
 

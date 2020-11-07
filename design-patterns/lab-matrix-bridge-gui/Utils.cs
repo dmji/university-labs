@@ -14,27 +14,26 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using lab_matrix_bridge;
+using System.Threading;
 
 namespace lab_matrix_bridge_gui
 {
     public partial class MainWindow : Window
     {
-        string rightBorder = "", leftBorder = "";
-        bool bConsole = true;
-
-        private void CheckBox_BORDER_Click(object sender, RoutedEventArgs e)
+        private void MatrixInit(IMatrix<int> mx)
         {
-            new BorderCBClickCommand(this).Execute();
+            int nZ = Convert.ToInt32(TB_nZero.Text);
+            InicializeMatrix.init(mx, nZ > mx.nCol()*mx.nRow() ? mx.nCol() * mx.nRow() : nZ, Convert.ToInt32(TB_maxRnd.Text));
         }
 
-        private void DT_WPF_Checked(object sender, RoutedEventArgs e)
+        private void ApplyMatrix(IMatrix<int> mx)
         {
-            new BridgeCommand(this, 0).Execute();
-        }
-
-        private void DT_CONSOLE_Checked(object sender, RoutedEventArgs e)
-        {
-            new BridgeCommand(this, 1).Execute();
+            matr = mx;
+            if(!bConsole)
+                Console.Clear();
+            MatrixView.Source = null;
+            if(print != null && matr != null)
+                matr.Print(print);
         }
     }
 }
