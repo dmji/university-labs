@@ -103,7 +103,6 @@ namespace lab_matrix_bridge_gui
         {
             var dpiX = 96.0 * VisualTreeHelper.GetDpi(t).DpiScaleX;
             var dpiY = 96.0 * VisualTreeHelper.GetDpi(t).DpiScaleY;
-            int irow = 0;
             double FontSize = 12,
                 startX = 30, startY = 20,
                 curX = 30, curY = 20,
@@ -129,11 +128,6 @@ namespace lab_matrix_bridge_gui
             bmp.Render(drawingVisual);
             t.Source = bmp;
             t.UpdateLayout();
-            // Add Image to the UI
-            /*StackPanel myStackPanel = new StackPanel();
-            myStackPanel.Children.Add(myImage);
-            this.Content = myStackPanel;
-            */
             toRelease.Clear();
         }
 

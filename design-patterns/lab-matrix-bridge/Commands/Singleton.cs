@@ -28,10 +28,12 @@ namespace lab_matrix_bridge
         public void Undo()
         {
             m_bUndo = true;
-            mem.PopBack();
+            if(mem.Length() > 1)
+                mem.PopBack();
             for(int i = 0; i < mem.Length(); i++)
                 mem.Get(i).Execute();
             m_bUndo = false;
+
         }
     }
 }

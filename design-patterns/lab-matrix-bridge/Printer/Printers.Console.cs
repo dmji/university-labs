@@ -62,8 +62,8 @@ namespace lab_matrix_bridge
         }
         public void setBorder(string left = "", string right = "")
         {
-            leftBorder = left;
-            rightBorder = right;
+            leftBorder = left + " ";
+            rightBorder = right+"\n";
         }
         protected string getBorder() { A = !A; return !A ? leftBorder : rightBorder; }
         protected string getElementBorder() { E = !E; return !E ? leftElementBorder : rightElementBorder; }

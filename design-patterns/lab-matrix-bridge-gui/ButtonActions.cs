@@ -22,12 +22,11 @@ namespace lab_matrix_bridge_gui
     {
         private void BTN_SPARCE_Click(object sender, RoutedEventArgs e)
         {
-            
             if(TB_nCOL.Text.Length > 0 && TB_nROW.Text.Length > 0 && TB_nZero.Text.Length > 0 && TB_maxRnd.Text.Length > 0 && print != null)
             {
                 SparseMatrix<int> mx = new SparseMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
                 MatrixInit(mx);
-                new MatrixCommand(this, mx.Clone()).Execute();
+                new MatrixCommand(this, mx).Execute();
             }
         }
         private void BTN_SIMPLE_Click(object sender, RoutedEventArgs e)
@@ -36,13 +35,30 @@ namespace lab_matrix_bridge_gui
             {
                 SimpleMatrix<int> mx = new SimpleMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
                 MatrixInit(mx);
-                new MatrixCommand(this, mx.Clone()).Execute();
+                new MatrixCommand(this, mx).Execute();
             }
         }
-
         private void BTN_Undo_Click(object sender, RoutedEventArgs e)
         {
             lab_matrix_bridge.CommandManager.GetInstance().Undo();
+        }
+        private void BTN_SPARCE_ExDown_Click(object sender, RoutedEventArgs e)
+        {
+            if(TB_nCOL.Text.Length > 0 && TB_nROW.Text.Length > 0 && TB_nZero.Text.Length > 0 && TB_maxRnd.Text.Length > 0 && print != null && matr != null)
+            {
+                SparseMatrix<int> mNew = new SparseMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
+                MatrixInit(mNew);
+                new MatrixCommand(this, mNew, 2).Execute();
+            }
+        }
+        private void BTN_SIMPLE_ExDown_Click(object sender, RoutedEventArgs e)
+        {
+            if(TB_nCOL.Text.Length > 0 && TB_nROW.Text.Length > 0 && TB_nZero.Text.Length > 0 && TB_maxRnd.Text.Length > 0 && print != null && matr != null)
+            {
+                SimpleMatrix<int> mNew = new SimpleMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
+                MatrixInit(mNew);
+                new MatrixCommand(this, mNew, 2).Execute();
+            }
         }
         private void BTN_SPARCE_Ex_Click(object sender, RoutedEventArgs e)
         {
@@ -50,7 +66,7 @@ namespace lab_matrix_bridge_gui
             {
                 SparseMatrix<int> mNew = new SparseMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
                 MatrixInit(mNew);
-                new MatrixCommand(this, mNew.Clone(),true).Execute();
+                new MatrixCommand(this, mNew, 1).Execute();
             }
         }
         private void BTN_SIMPLE_Ex_Click(object sender, RoutedEventArgs e)
@@ -59,20 +75,17 @@ namespace lab_matrix_bridge_gui
             {
                 SimpleMatrix<int> mNew = new SimpleMatrix<int>(Convert.ToInt32(TB_nROW.Text), Convert.ToInt32(TB_nCOL.Text));
                 MatrixInit(mNew);
-                new MatrixCommand(this, mNew.Clone(),true).Execute();
+                new MatrixCommand(this, mNew, 1).Execute();
             }
         }
-
         private void BTN_Restore_Click(object sender, RoutedEventArgs e)
         {
             new OperationCommand(this,1).Execute();
         }
-
         private void BTN_Transpose_Click(object sender, RoutedEventArgs e)
         {
             new OperationCommand(this,0).Execute();
         }
-
         private void BTN_Renumber_Click(object sender, RoutedEventArgs e)
         {
             Random rnd = new Random();

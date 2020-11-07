@@ -59,17 +59,17 @@ namespace lab_matrix_bridge_gui
                 {
                     case 0:
                         mw.print = new PrinterWPF(mw.MatrixView, (bool)mw.CheckBox_BORDER.IsChecked);
+                        mw.DT_WPF.IsChecked = true;
                         break;
                     case 1:
+                        if(mw.bConsole)
                         {
-                            if(mw.bConsole)
-                            {
-                                AllocConsole();
-                                mw.bConsole = false;
-                            }
-                            mw.print = new ConsolePrinter(mw.leftBorder, mw.rightBorder);
-                            break;
+                            AllocConsole();
+                            mw.bConsole = false;
                         }
+                        mw.print = new ConsolePrinter(mw.leftBorder, mw.rightBorder);
+                        mw.DT_CONSOLE.IsChecked = true;
+                        break;
                 }
                 mw.ApplyMatrix(mw.matr);
             }

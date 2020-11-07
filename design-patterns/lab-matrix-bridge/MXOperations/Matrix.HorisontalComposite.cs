@@ -9,13 +9,15 @@ namespace lab_matrix_bridge
         int size = 0;
         public HorisontalCompositeMatrix(params IMatrix<T>[] vals)
         {
-            mem = new SparseVector<IMatrix<T>>(1000);
+            mem = new SparseVector<IMatrix<T>>(10000);
             foreach(var a in vals)
                 mem.Set(size++, a);
         }
         public HorisontalCompositeMatrix(HorisontalCompositeMatrix<T> src)
         {
-            mem = new SparseVector<IMatrix<T>>(src.mem);
+            mem = new SparseVector<IMatrix<T>>(10000);
+            for(int i = 0; i < mem.Length(); i++)
+                mem.Set(i, src.mem.Get(i).Clone());
             size = src.size;
         }
         public override IMatrix<T> Clone() => new HorisontalCompositeMatrix<T>(this);
@@ -39,14 +41,22 @@ namespace lab_matrix_bridge
             int sCol = 0, iMx = GetBase(iRow, iColumn);
             for(int i = 0; i < iMx; i++)
                 sCol += mem.Get(i).nCol();
-            return mem.Get(iMx).isEmpty(iRow, iColumn - sCol);
+            var mx = mem.Get(iMx);
+            if(mx.nCol() <= iColumn - sCol || mx.nRow() <= iRow)
+                return false;
+            else
+                return mx.isEmpty(iRow, iColumn - sCol);
         }
         public override T Get(int iRow, int iColumn)
         {
             int sCol = 0, iMx = GetBase(iRow, iColumn);
             for(int i = 0; i < iMx;i++)
                 sCol += mem.Get(i).nCol();
-            return mem.Get(iMx).Get(iRow, iColumn - sCol);
+            var mx = mem.Get(iMx);
+            if(mx.nCol() <= iColumn - sCol || mx.nRow() <= iRow)
+                return default(T);
+            else
+                return mx.Get(iRow, iColumn - sCol);
         }
         public override bool Set(int iRow, int iColumn, T value)
         {
@@ -59,6 +69,16 @@ namespace lab_matrix_bridge
         public void Append(IMatrix<T> mx)
         {
             mem.Set(size++, mx);
+        }
+        public void TransponceGroup()
+        {
+            for(int i = 0; i < mem.Length(); i++)
+            {
+                if(mem.Get(i) is HorisontalCompositeMatrix<T>)
+                    ((HorisontalCompositeMatrix<T>)mem.Get(i)).TransponceGroup();
+                else
+                    mem.Set(i, new TransposeMatrix<T>(mem.Get(i)));
+            }
         }
         public bool Set(int i, IMatrix<T> mx) => mem.Set(i, mx);
         int GetBase(int row, int col)

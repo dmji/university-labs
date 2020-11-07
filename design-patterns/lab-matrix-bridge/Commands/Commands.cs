@@ -11,10 +11,6 @@ namespace lab_matrix_bridge
     }
     public abstract class ACommands : ICommand
     {
-        protected ACommands()
-        {
-            int i = 1+1;
-        }
         public void Execute()
         {
             CommandManager.GetInstance().Registry(this);

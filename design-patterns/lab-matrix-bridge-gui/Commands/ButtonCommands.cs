@@ -24,27 +24,44 @@ namespace lab_matrix_bridge_gui
         {
             MainWindow mw;
             IMatrix<int> mx;
-            bool m_bIsAppend;
-            public MatrixCommand(MainWindow m, IMatrix<int> matr, bool isAppend = false)
+            int m_Append;
+            public MatrixCommand(MainWindow m, IMatrix<int> matr, int append = 0)
             {
                 mw = m;
-                mx = matr;
-                m_bIsAppend = isAppend;
+                mx = matr.Clone();
+                m_Append = append;
             }
-            public override lab_matrix_bridge.ICommand Clone() => new MatrixCommand(mw, mx.Clone(), m_bIsAppend);
+            public override lab_matrix_bridge.ICommand Clone() => new MatrixCommand(mw, mx.Clone(), m_Append);
             protected override void doExecute()
             {
-                if(m_bIsAppend)
+                HorisontalCompositeMatrix<int> ex;
+                IMatrix<int> res=mx;
+                switch(m_Append)
                 {
-                    HorisontalCompositeMatrix<int> ex;
-                    if(mw.matr is HorisontalCompositeMatrix<int>)
-                        ex = (HorisontalCompositeMatrix<int>)mw.matr;
-                    else
-                        ex = new HorisontalCompositeMatrix<int>(mw.matr);
-                    ex.Append(mx);
-                    mx = ex;
+                    case 1:
+                        if(mw.matr is HorisontalCompositeMatrix<int>)
+                            ex = (HorisontalCompositeMatrix<int>)mw.matr;
+                        else
+                            ex = new HorisontalCompositeMatrix<int>(mw.matr);
+                        ex.Append(mx);
+                        res = ex;
+                        break;
+                    case 2:
+                        if(mw.matr is HorisontalCompositeMatrix<int>)
+                        {
+                            ex = (HorisontalCompositeMatrix<int>)mw.matr;
+                            ex.TransponceGroup();
+                        }
+                        else
+                            ex = new HorisontalCompositeMatrix<int>(new TransposeMatrix<int>(mw.matr));
+                        HorisontalCompositeMatrix<int> hex =new HorisontalCompositeMatrix<int>(new TransposeMatrix<int>(ex));
+                        hex.Append(new TransposeMatrix<int>(mx));
+
+                        res = new TransposeMatrix<int>(hex);
+                        ex.TransponceGroup();
+                        break;
                 }
-                mw.ApplyMatrix(mx);
+                mw.ApplyMatrix(res);
             }
         }
         

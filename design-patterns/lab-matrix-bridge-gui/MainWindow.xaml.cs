@@ -35,6 +35,27 @@ namespace lab_matrix_bridge_gui
         public MainWindow()
         {
             InitializeComponent();
+            new BackupCommand(this,matr, TB_nROW.Text, TB_nCOL.Text,TB_nZero.Text,TB_maxRnd.Text,(bool)CheckBox_BORDER.IsChecked,/*(bool)DT_CONSOLE.IsChecked ? 1 :*/ 0, rightBorder, leftBorder).Execute();
+        }
+
+        private void TB_nROW_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            new UtilCommand(this, TB_nROW.Text, (MainWindow mw,string s) => { mw.TB_nROW.Text = s; return false; }).Execute();
+        }
+
+        private void TB_nCOL_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            new UtilCommand(this, TB_nCOL.Text, (MainWindow mw, string s) => { mw.TB_nCOL.Text = s; return false; }).Execute();
+        }
+
+        private void TB_nZero_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            new UtilCommand(this, TB_nZero.Text, (MainWindow mw, string s) => { mw.TB_nZero.Text = s; return false; }).Execute();
+        }
+
+        private void TB_maxRnd_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            new UtilCommand(this, TB_maxRnd.Text, (MainWindow mw, string s) => { mw.TB_maxRnd.Text = s; return false; }).Execute();
         }
     }
 }
