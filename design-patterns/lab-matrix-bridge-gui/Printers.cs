@@ -23,7 +23,7 @@ namespace lab_matrix_bridge_gui
     public class PrinterWPF : IPrinter
     {
         Image t;
-        bool bElemendBorder = false, bBorder = false, bBorderActive=false;
+        bool bElemendBorder = false, bBorder = false, bBorderActive = false;
         List<stack> toRelease = new List<stack>();
         int padding = 0;
 
@@ -31,7 +31,7 @@ namespace lab_matrix_bridge_gui
         {
             static Brush GetColor(int i)
             {
-                switch(i%11)
+                switch(i % 11)
                 {
                     case 0:
                         return Brushes.Black;
@@ -58,7 +58,7 @@ namespace lab_matrix_bridge_gui
                     default:
                         return Brushes.Black;
                 }
-                
+
             }
             public string val;
             public int group;
@@ -90,9 +90,7 @@ namespace lab_matrix_bridge_gui
             }
         }
 
-        
-
-        public PrinterWPF(Image p, bool border=false, bool elementBorder=false)
+        public PrinterWPF(Image p, bool border = false, bool elementBorder = false)
         {
             t = p;
             bBorder = border;
@@ -107,21 +105,21 @@ namespace lab_matrix_bridge_gui
                 startX = 30, startY = 20,
                 curX = 30, curY = 20,
                 maxX = 0,
-                curTextHeight= new FormattedText("0", new CultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface(""), FontSize, Brushes.Black).Height,
+                curTextHeight = new FormattedText("0", new CultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface(""), FontSize, Brushes.Black).Height,
                 curTextWidth = new FormattedText("0", new CultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface(""), FontSize, Brushes.Black).Width
                 ;
-            RenderTargetBitmap bmp = new RenderTargetBitmap((int)t.Width, (int)t.Height, dpiX, dpiY, PixelFormats.Pbgra32); 
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)t.Width, (int)t.Height, dpiX, dpiY, PixelFormats.Pbgra32);
             DrawingVisual drawingVisual = new DrawingVisual();
-            
+
             DrawingContext drawingContext = drawingVisual.RenderOpen();
-            foreach(stack a in toRelease) 
+            foreach(stack a in toRelease)
             {
                 a.Print(ref drawingContext, startX, ref curX, ref curY, FontSize, padding, curTextWidth, curTextHeight);
                 if(maxX < curX) maxX = curX;
             }
             if(bBorder)
             {
-                drawingContext.DrawRectangle(Brushes.Black, new Pen(Brushes.Black,2), new Rect(startX-padding*curTextWidth-15, startY, 2, curY - curTextHeight));
+                drawingContext.DrawRectangle(Brushes.Black, new Pen(Brushes.Black, 2), new Rect(startX - padding * curTextWidth - 15, startY, 2, curY - curTextHeight));
                 drawingContext.DrawRectangle(Brushes.Black, new Pen(Brushes.Black, 2), new Rect(maxX, startY, 2, curY - curTextHeight));
             }
             drawingContext.Close();
@@ -137,12 +135,12 @@ namespace lab_matrix_bridge_gui
                 toRelease.Add(new stack("\n", 0));
             bBorderActive = !bBorderActive;
         }
+
         public void PrintBorderElement()
         {
-            
         }
 
-        public void Print<T>(T m, int group=0)
+        public void Print<T>(T m, int group = 0)
         {
             if(padding < m.ToString().Length)
                 padding = m.ToString().Length;
@@ -151,13 +149,11 @@ namespace lab_matrix_bridge_gui
 
         public void setElementBorder(string left = "", string right = "")
         {
-            throw new NotImplementedException();
         }
 
         public void setBorder(string left = "", string right = "")
         {
-            bBorder = left != "" || right != "";                
+            bBorder = left != "" || right != "";
         }
     }
-
 }
