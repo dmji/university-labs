@@ -3,136 +3,100 @@ using System.Linq;
 
 namespace lab_matrix_bridge
 {
-     public class SparseVector<T> : IVector<T>
+    public class SparseVector<T> : SimpleVector<T>
     {
-        T[] memValue;
-        int[] memIndex;
+        SimpleVector<int> memIndex;
         int size;
+        T defVal = default(T);
 
-        public SparseVector(int vecSize)
+        public void setDefault(T val) { defVal = val; }
+        public SparseVector(int vecSize=0) : base()
         {
-            memValue = new T[0];
-            memIndex = new int[0];
+            memIndex = new SimpleVector<int>();
             size = vecSize;
         }
 
         public int findFirst(T value)
         {
-            if(memValue != null)
-            {
-                var bContaint = memValue.Contains(value);
-                if(bContaint)
-                {
-                    for(int i = 0; i < memValue.Length; i++)
-                    {
-                        if(memValue[i].Equals(value))
-                            return memIndex[i];
-                    }
-                }
-            }
+            for(int i = 0; i < base.Size(); i++)
+                if(base.Get(i).Equals(value))
+                    return memIndex.Get(i);
             return -1;
         }
 
-        public SparseVector(SparseVector<T> src)
+        public SparseVector(IVector<T> src) : base()
         {
-            size = src.size;
-            src.memIndex.CopyTo(memIndex, 0);
-            src.memValue.CopyTo(memValue, 0);
-        }
-        public T Get(int index)
-        {
-            if(index < size)
+            size = src.Size();
+            for(int i = 0; i < size; i++)
             {
-                if(memIndex!=null && memIndex.Length > 0)
-                {
-                    for(int j = 0; j < memIndex.Length; j++)
-                        if(memIndex[j] == index)
-                            return memValue[j];
-                }
+                T cur = src.Get(i);
+                if(!cur.Equals(defVal))
+                { 
+                    memIndex.Add(i);
+                    base.Add(cur);
+                } 
             }
-            return default(T);
+            if(src is SparseVector<T>)
+                defVal = ((SparseVector<T>)src).defVal;
         }
-        public bool Set(int index, T value)
+        
+        public override T Get(int index)
+        {
+            if(index > size)
+                throw new System.Exception("out of range");
+            if(memIndex.Size() > 0)
+            {
+                for(int j = 0; j < memIndex.Size(); j++)
+                    if(memIndex.Get(j) == index)
+                        return base.Get(j);
+            }
+            return defVal;
+        }
+
+        public override bool Set(int index, T value)
         {
             if(index < size)
             {
-                if(memIndex==null)
+                if(memIndex.Size() == 0 && value != null && !value.Equals(defVal))
                 {
-                    memIndex = new int[1];
-                    memIndex[0] = index;
-                    memValue = new T[1];
-                    memValue[0] = value;
+                    memIndex.Add(index);
+                    base.Add(value);
                     return true;
                 }
-                int fInd = -1, fPast=0;
-                for(int i = 0; i < memIndex.Length; i++)
-                { 
-                    if(index == memIndex[i])
+                int fInd = -1, fPast = 0;
+                for(int i = 0; i < memIndex.Size(); i++)
+                {
+                    if(index == memIndex.Get(i))
                         fInd = i;
-                    if(memIndex[i] < index)
+                    if(memIndex.Get(i) < index)
                         fPast++;
                 }
                 if(fInd != -1)
                 {
-                    if(value == null || value.Equals(default(T)))
+                    if(value == null || value.Equals(defVal))
                     {
-                        T[] vnew = new T[memValue.Length - 1];
-                        int[] inew = new int[memIndex.Length - 1];
-                        int ind = 0;
-                        for(int i = 0; i < vnew.Length; i++)
-                        {
-                            if(fInd != i)
-                            {
-                                vnew[ind] = memValue[i];
-                                inew[ind++] = memIndex[i];
-                            }
-                        }
-                        memValue = vnew;
-                        memIndex = inew;
+                        base.RemoveAt(index);
+                        memIndex.RemoveAt(index);
                         return true;
                     }
                     else
-                        memValue[fInd] = value;
+                        base.Set(fInd, value);
                     return true;
                 }
-                else
+                else if(value != null && !value.Equals(defVal))
                 {
-                    T[] vnew = new T[memValue.Length + 1];
-                    int[] inew = new int[memIndex.Length + 1];
-                    for(int i = 0; i < vnew.Length; i++)
-                    {
-                        if(fPast > i)
-                        {
-                            vnew[i] = memValue[i];
-                            inew[i] = memIndex[i];
-                        }
-                        else if(fPast == i)
-                        {
-                            vnew[i] = value;
-                            inew[i] = index;
-                        }
-                        else
-                        {
-                            vnew[i] = memValue[i - 1];
-                            inew[i] = memIndex[i - 1];
-                        }
-                    }
-                    memValue = vnew;
-                    memIndex = inew;
+                    base.Insert(fInd, value);
+                    memIndex.Insert(fInd, index);
                     return true;
                 }
             }
             return false;
         }
-        public int Size() => size;
-        public int Length() => memIndex.Length;
 
-        public T PopBack()
-        {
-            T sval = memValue[Length()-1];
-            Set(Length() - 1, default(T));
-            return sval;
-        }
-        public bool Add(T val) => Set(Length(), val);
+        public override int Size() => size;
+
+        public int Length() => memIndex.Size();
+
+        public override IVector<T> Clone() => new SparseVector<T>(this);
     }
 }

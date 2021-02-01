@@ -23,12 +23,12 @@ namespace lab_matrix_bridge_gui
         class UtilCommand : ACommands
         {
             MainWindow mw;
-            Func<MainWindow, string, bool> m_fn;
-            string m_val;
-            public UtilCommand(MainWindow m, string sval, Func<MainWindow, string, bool> fn)
+            Func<MainWindow, object, bool> m_fn;
+            object m_val;
+            public UtilCommand(MainWindow m, object val, Func<MainWindow, object, bool> fn)
             {
                 mw = m;
-                m_val = sval;
+                m_val = val;
                 m_fn = fn;
             }
             public override lab_matrix_bridge.ICommand Clone() => new UtilCommand(mw, m_val, m_fn);

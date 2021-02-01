@@ -23,7 +23,7 @@ namespace lab_matrix_bridge_gui
         private void MatrixInit(IMatrix<int> mx)
         {
             int nZ = Convert.ToInt32(TB_nZero.Text);
-            InicializeMatrix.init(mx, nZ > mx.nCol() * mx.nRow() ? mx.nCol() * mx.nRow() : nZ, Convert.ToInt32(TB_maxRnd.Text));
+            InicializeIntMatrix.init(mx, nZ > mx.nCol() * mx.nRow() ? mx.nCol() * mx.nRow() : nZ, Convert.ToInt32(TB_maxRnd.Text));
         }
         private void ApplyMatrix(IMatrix<int> mx)
         {

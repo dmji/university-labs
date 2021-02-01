@@ -40,22 +40,22 @@ namespace lab_matrix_bridge_gui
 
         private void TB_nROW_TextChanged(object sender, TextChangedEventArgs e)
         {
-            new UtilCommand(this, TB_nROW.Text, (MainWindow mw,string s) => { mw.TB_nROW.Text = s; return false; }).Execute();
+            new UtilCommand(this, TB_nROW.Text, (MainWindow mw, object s) => { mw.TB_nROW.Text = (string)s; return false; }).Execute();
         }
 
         private void TB_nCOL_TextChanged(object sender, TextChangedEventArgs e)
         {
-            new UtilCommand(this, TB_nCOL.Text, (MainWindow mw, string s) => { mw.TB_nCOL.Text = s; return false; }).Execute();
+            new UtilCommand(this, TB_nCOL.Text, (MainWindow mw, object s) => { mw.TB_nCOL.Text = (string)s; return false; }).Execute();
         }
 
         private void TB_nZero_TextChanged(object sender, TextChangedEventArgs e)
         {
-            new UtilCommand(this, TB_nZero.Text, (MainWindow mw, string s) => { mw.TB_nZero.Text = s; return false; }).Execute();
+            new UtilCommand(this, TB_nZero.Text, (MainWindow mw, object s) => { mw.TB_nZero.Text = (string)s; return false; }).Execute();
         }
 
         private void TB_maxRnd_TextChanged(object sender, TextChangedEventArgs e)
         {
-            new UtilCommand(this, TB_maxRnd.Text, (MainWindow mw, string s) => { mw.TB_maxRnd.Text = s; return false; }).Execute();
+            new UtilCommand(this, TB_maxRnd.Text, (MainWindow mw, object s) => { mw.TB_maxRnd.Text = (string)s; return false; }).Execute();
         }
     }
 }

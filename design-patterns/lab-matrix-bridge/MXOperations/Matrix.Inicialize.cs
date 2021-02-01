@@ -2,7 +2,7 @@
 
 namespace lab_matrix_bridge
 {
-    public class InicializeMatrix
+    public class InicializeIntMatrix
     {
         public static bool init(IMatrix<int> mx, int notZero, int maxValue)
         {

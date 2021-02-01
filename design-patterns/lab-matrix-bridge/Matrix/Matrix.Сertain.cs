@@ -2,13 +2,14 @@
 {
     public abstract class AMatrix<T> : IMatrix<T>
     {
+
         public abstract T Get(int iRow, int iColumn);
         public abstract IMatrix<T> getOriginal();
         public abstract bool isEmpty(int row, int col);
         public abstract int nCol();
         public abstract int nRow();
         public abstract bool Set(int iRow, int iColumn, T value);
-        public void Print(IPrinter p)
+        public void Print(IPrinter p, bool bRelease=true)
         {
             for(int i = 0; i < nRow(); i++)
             {
@@ -19,16 +20,15 @@
                     {
                         if(printed == 0)
                             p.PrintBorder();
-                        p.PrintBorderElement();
                         p.Print<T>(Get(i, j));
-                        p.PrintBorderElement();
                         printed++;
                     }
                 }
                 if(printed > 0)
                     p.PrintBorder();
             }
-            p.ReleasePrint();
+            if(bRelease)
+                p.ReleasePrint();
         }
         public abstract IMatrix<T> Clone();
     }
@@ -65,9 +65,13 @@
         }
         public override bool Set(int iRow, int iColumn, T value)
         {
-            if(mem.Get(iRow) == default(IVector<T>))
-                mem.Set(iRow,InitRow());
-            return mem.Get(iRow).Set(iColumn, value);
+            if(iRow < nRow())
+            {
+                if(mem.Get(iRow) == default(IVector<T>))
+                    mem.Set(iRow, InitRow());
+                return mem.Get(iRow).Set(iColumn, value);
+            }
+            return false;
         }
         public override IMatrix<T> getOriginal() => this;
     }

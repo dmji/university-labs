@@ -155,5 +155,20 @@ namespace lab_matrix_bridge_gui
         {
             bBorder = left != "" || right != "";
         }
+
+        public string getBorderElement()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void disableBorders(bool left, bool right)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void flush()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

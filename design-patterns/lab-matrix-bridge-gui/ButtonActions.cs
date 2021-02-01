@@ -80,16 +80,27 @@ namespace lab_matrix_bridge_gui
         }
         private void BTN_Restore_Click(object sender, RoutedEventArgs e)
         {
-            new OperationCommand(this,1).Execute();
+            new UtilCommand(this, null, (MainWindow mw, object val) => { mw.ApplyMatrix(mw.matr.getOriginal()); return true; }).Execute();
         }
         private void BTN_Transpose_Click(object sender, RoutedEventArgs e)
         {
-            new OperationCommand(this,0).Execute();
+            new UtilCommand(this, null, (MainWindow mw, object val) => { mw.ApplyMatrix(new TransposeMatrix<int>(mw.matr)); return true; }).Execute();
         }
         private void BTN_Renumber_Click(object sender, RoutedEventArgs e)
         {
             Random rnd = new Random();
-            new RenumbCommand(this, rnd.Next(0, matr.nCol()), rnd.Next(0, matr.nCol()), rnd.Next(0, matr.nRow()), rnd.Next(0, matr.nRow())).Execute();
+            new UtilCommand(this, 
+                            new SimpleVector<int>(rnd.Next(0, matr.nCol()), rnd.Next(0, matr.nCol()), rnd.Next(0, matr.nRow()), rnd.Next(0, matr.nRow())),
+                            (MainWindow mw, object val) => {
+                            SimpleVector<int> vec = (SimpleVector<int>)val;
+                            ReAssignMatrix<int> mx;
+                            mx = mw.matr is ReAssignMatrix<int> ? (ReAssignMatrix<int>)mw.matr : new ReAssignMatrix<int>(mw.matr);
+                            if(vec.Get(0) != -1 && vec.Get(1) != -1) mx.SwapCols(vec.Get(0), vec.Get(1));
+                            if(vec.Get(2) != -1 && vec.Get(3) != -1) mx.SwapRows(vec.Get(2), vec.Get(3));
+                            mw.ApplyMatrix(mx);
+                            return true;
+                            }
+                            ).Execute();
         }
     }
 }

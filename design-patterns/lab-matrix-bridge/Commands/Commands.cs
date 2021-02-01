@@ -7,9 +7,9 @@ namespace lab_matrix_bridge
     public interface ICommand
     {
         void Execute();
-        ICommand Clone();
     }
-    public abstract class ACommands : ICommand
+
+    public abstract class ACommands : ICommand, Clonable<ICommand>
     {
         public void Execute()
         {
